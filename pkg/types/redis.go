@@ -1,4 +1,3 @@
-
 package types
 
 // RedisRequest 包含连接Redis所需的基础参数

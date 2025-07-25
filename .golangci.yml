@@ -1,0 +1,48 @@
+
+run:
+  timeout: 5m
+  go: "1.24"
+
+linters-settings:
+  govet:
+    enable:
+      - shadow
+  gocyclo:
+    min-complexity: 15
+  goconst:
+    min-len: 2
+    min-occurrences: 3
+  gci:
+    sections:
+      - standard
+      - default
+      - prefix(github.com/ct-zh/go-redis-proxy)
+
+linters:
+  disable-all: true
+  enable:
+    - bodyclose
+    - errcheck
+    - goconst
+    - gocyclo
+    - gofmt
+    - goimports
+    - gosimple
+    - govet
+    - ineffassign
+    - misspell
+    - staticcheck
+    - typecheck
+    - unused
+    - gci
+
+issues:
+  exclude-dirs:
+    - .git
+    - .vscode
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - gocyclo
+        - errcheck
+        - goconst

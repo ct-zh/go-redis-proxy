@@ -1,13 +1,13 @@
-
 package handler
 
 import (
 	"context"
-	"encoding/json"
 	"net/http"
 
+	"github.com/gin-gonic/gin"
+	redis "github.com/go-redis/redis/v8"
+
 	"github.com/ct-zh/go-redis-proxy/pkg/types"
-	"github.com/go-redis/redis/v8"
 )
 
 // RedisClient defines the interface for a Redis client. It's used to allow mocking in tests.
@@ -15,11 +15,11 @@ type RedisClient interface {
 	Get(ctx context.Context, key string) *redis.StringCmd
 }
 
-func RedisStringGet(client RedisClient) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+func RedisStringGet(client RedisClient) gin.HandlerFunc {
+	return func(c *gin.Context) {
 		var req types.StringGetRequest
-		if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
+		if err := c.ShouldBindJSON(&req); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
 
@@ -39,25 +39,23 @@ func RedisStringGet(client RedisClient) http.HandlerFunc {
 		val, err := rdb.Get(context.Background(), req.Key).Result()
 		if err != nil {
 			if err == redis.Nil {
-				w.Header().Set("Content-Type", "application/json")
-				json.NewEncoder(w).Encode(map[string]interface{}{
+				c.JSON(http.StatusOK, gin.H{
 					"code": 0,
 					"msg":  "success",
-					"data": map[string]interface{}{
+					"data": gin.H{
 						"value": nil,
 					},
 				})
 				return
 			}
-			http.Error(w, "error connecting to redis: "+err.Error(), http.StatusInternalServerError)
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error connecting to redis: " + err.Error()})
 			return
 		}
 
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(map[string]interface{}{
+		c.JSON(http.StatusOK, gin.H{
 			"code": 0,
 			"msg":  "success",
-			"data": map[string]interface{}{
+			"data": gin.H{
 				"value": val,
 			},
 		})
