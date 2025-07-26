@@ -69,7 +69,11 @@ go-redis-proxy/
 │   └── errors/            # 错误定义
 │       └── errors.go
 ├── api/                   # API文档
-│   └── openapi.yaml
+│   ├── openapi.yaml       # OpenAPI 3.0规范文件
+│   └── swagger/           # Swagger自动生成文档
+│       ├── docs.go
+│       ├── swagger.json
+│       └── swagger.yaml
 ├── configs/               # 配置文件
 │   ├── config.yaml
 │   └── config.example.yaml
@@ -84,11 +88,135 @@ go-redis-proxy/
 ├── docs/                  # 文档
 │   ├── api.md
 │   ├── deployment.md
-│   └── configuration.md
+│   ├── configuration.md
+│   └── swagger-ui/        # 自定义Swagger UI资源
 ├── go.mod
 ├── go.sum
 ├── Makefile
 └── README.md
+```
+
+## API文档系统
+
+### OpenAPI/Swagger集成方案
+
+本项目采用 **OpenAPI 3.0规范** 和 **Swagger** 生态系统来提供完整的API文档解决方案。
+
+#### 技术选型
+
+- **swaggo/swag**: Go语言的Swagger文档生成工具
+- **swaggo/gin-swagger**: Gin框架的Swagger中间件
+- **swaggo/files**: 静态文件服务支持
+- **OpenAPI 3.0**: 现代API规范标准
+
+#### 文档功能特性
+
+1. **自动化文档生成**
+   - 通过代码注释自动生成API文档
+   - 支持实时更新和版本管理
+   - 类型安全的参数和响应模型
+
+2. **交互式API界面**
+   - Swagger UI提供可视化接口文档
+   - 在线API测试和调试功能
+   - 支持多种认证方式测试
+
+3. **多格式支持**
+   - JSON格式API规范
+   - YAML格式API规范
+   - 可导出OpenAPI标准文档
+
+4. **开发者友好**
+   - 代码示例和SDK生成
+   - 多语言客户端支持
+   - API变更追踪和兼容性检查
+
+#### 文档访问方式
+
+```bash
+# Swagger UI界面
+GET /swagger/index.html
+
+# JSON格式API文档
+GET /swagger/doc.json
+
+# YAML格式API文档  
+GET /swagger/doc.yaml
+
+# 自定义API文档页面
+GET /api/docs
+```
+
+#### 代码注释规范
+
+```go
+// @title Go Redis Proxy API
+// @version 1.0.0
+// @description Redis HTTP代理服务API文档
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
+
+// @host localhost:8080
+// @BasePath /api/v1
+
+// @Summary Redis字符串GET操作
+// @Description 根据指定的key获取Redis中存储的字符串值
+// @Tags Redis String Operations
+// @Accept json
+// @Produce json
+// @Param request body types.StringGetRequest true "请求参数"
+// @Success 200 {object} types.StringGetResponse "成功响应"
+// @Failure 400 {object} types.ErrorResponse "请求参数错误"
+// @Failure 500 {object} types.ErrorResponse "服务器内部错误"
+// @Router /redis/string/get [post]
+func RedisStringGet(client RedisClient) gin.HandlerFunc {
+    // 处理逻辑...
+}
+```
+
+#### 文档生成命令
+
+```bash
+# 安装swag工具
+go install github.com/swaggo/swag/cmd/swag@latest
+
+# 生成Swagger文档
+swag init -g cmd/server/main.go -o api/swagger/
+
+# 格式化API文档
+swag fmt
+
+# 验证API规范
+swag validate
+```
+
+#### 集成配置
+
+```go
+// main.go
+import (
+    "github.com/gin-gonic/gin"
+    ginSwagger "github.com/swaggo/gin-swagger"
+    "github.com/swaggo/gin-swagger/swaggerFiles"
+    
+    _ "github.com/ct-zh/go-redis-proxy/api/swagger"
+)
+
+func main() {
+    r := gin.Default()
+    
+    // Swagger路由
+    r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+    
+    // API路由...
+    r.Run(":8080")
+}
 ```
 
 ## API设计示例
@@ -157,6 +285,7 @@ GET /api/v1/config
 - [ ] RESTful API设计实现
 - [ ] 连接池优化
 - [ ] 中间件系统
+- [ ] API文档系统集成（Swagger/OpenAPI）
 - [ ] 单元测试
 
 ### Phase 3: 扩展功能 (Week 5-6)
@@ -182,13 +311,13 @@ GET /api/v1/config
 
 ## 技术栈
 
-- **语言**: Go 1.19+
+- **语言**: Go 1.24.3+
 - **Web框架**: Gin
-- **Redis客户端**: go-redis/redis
+- **Redis客户端**: go-redis/redis/v8
 - **配置管理**: Viper
 - **日志**: Logrus
 - **测试**: Testify
-- **文档**: Swagger/OpenAPI
+- **API文档**: Swagger/OpenAPI 3.0 (swaggo/swag)
 - **容器化**: Docker
 
 ## 快速开始
@@ -210,6 +339,9 @@ go run cmd/server/main.go
 
 # 测试API
 curl http://localhost:8080/health
+
+# 访问API文档
+open http://localhost:8080/swagger/index.html
 ```
 
 ## 贡献
