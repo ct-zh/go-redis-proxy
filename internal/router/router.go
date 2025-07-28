@@ -43,6 +43,16 @@ func SetupWithContainer(engine *gin.Engine, container *container.Container) {
 				listGroup.POST("/llen", container.RedisListHandler.RedisListLLen)
 				listGroup.POST("/ltrim", container.RedisListHandler.RedisListLTrim)
 			}
+
+			// Set operations
+			setGroup := redis.Group("/set")
+			{
+				setGroup.POST("/sadd", container.RedisSetHandler.SAdd)
+				setGroup.POST("/srem", container.RedisSetHandler.SRem)
+				setGroup.POST("/sismember", container.RedisSetHandler.SIsMember)
+				setGroup.POST("/smembers", container.RedisSetHandler.SMembers)
+				setGroup.POST("/scard", container.RedisSetHandler.SCard)
+			}
 		}
 	}
 }

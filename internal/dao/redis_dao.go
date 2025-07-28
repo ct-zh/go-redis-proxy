@@ -33,6 +33,13 @@ type RedisDAO interface {
 	ListLRange(ctx context.Context, key string, start, stop int64) ([]string, error)
 	ListLLen(ctx context.Context, key string) (int64, error)
 	ListLTrim(ctx context.Context, key string, start, stop int64) (string, error)
+
+	// Set operations
+	SetSAdd(ctx context.Context, key string, members []string) (int64, error)
+	SetSRem(ctx context.Context, key string, members []string) (int64, error)
+	SetSIsMember(ctx context.Context, key string, member string) (bool, error)
+	SetSMembers(ctx context.Context, key string) ([]string, error)
+	SetSCard(ctx context.Context, key string) (int64, error)
 }
 
 // RedisConnectionConfig holds the configuration for Redis connection

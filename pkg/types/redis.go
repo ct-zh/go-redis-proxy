@@ -116,3 +116,38 @@ type ListLTrimRequest struct {
 	Start int64  `json:"start"` // 开始索引
 	Stop  int64  `json:"stop"`  // 结束索引
 }
+
+// Set操作请求类型
+
+// RedisSAddRequest 定义了SADD操作的请求体
+type RedisSAddRequest struct {
+	RedisRequest
+	Key     string   `json:"key"`
+	Members []string `json:"members"`
+}
+
+// RedisSRemRequest 定义了SREM操作的请求体
+type RedisSRemRequest struct {
+	RedisRequest
+	Key     string   `json:"key"`
+	Members []string `json:"members"`
+}
+
+// RedisSIsMemberRequest 定义了SISMEMBER操作的请求体
+type RedisSIsMemberRequest struct {
+	RedisRequest
+	Key    string `json:"key"`
+	Member string `json:"member"`
+}
+
+// RedisSMembersRequest 定义了SMEMBERS操作的请求体
+type RedisSMembersRequest struct {
+	RedisRequest
+	Key string `json:"key"`
+}
+
+// RedisSCardRequest 定义了SCARD操作的请求体
+type RedisSCardRequest struct {
+	RedisRequest
+	Key string `json:"key"`
+}

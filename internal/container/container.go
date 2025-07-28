@@ -14,10 +14,12 @@ type Container struct {
 	// Service layer
 	StringService service.RedisStringService
 	ListService   service.RedisListService
+	SetService    service.RedisSetService
 
 	// Handler layer
 	RedisHandler     *handler.RedisHandler
 	RedisListHandler *handler.RedisListHandler
+	RedisSetHandler  *handler.RedisSetHandler
 }
 
 // NewContainer creates and initializes a new container with all dependencies
@@ -30,6 +32,7 @@ func NewContainer() *Container {
 	// Initialize Service layer with DAO dependencies
 	container.StringService = service.NewRedisStringService(container.RedisDAO)
 	container.ListService = service.NewRedisListService(container.RedisDAO)
+	container.SetService = service.NewRedisSetService(container.RedisDAO)
 
 	// Initialize Handler layer with Service dependencies
 	container.RedisHandler = handler.NewRedisHandler(
@@ -38,6 +41,10 @@ func NewContainer() *Container {
 	)
 	container.RedisListHandler = handler.NewRedisListHandler(
 		container.ListService,
+	)
+
+	container.RedisSetHandler = handler.NewRedisSetHandler(
+		container.SetService,
 	)
 
 	return container

@@ -193,3 +193,45 @@ func (r *RedisDAOImpl) ListLTrim(ctx context.Context, key string, start, stop in
 	result := r.client.LTrim(ctx, key, start, stop)
 	return result.Val(), result.Err()
 }
+
+// Set operations
+
+// SetSAdd adds members to a set
+func (r *RedisDAOImpl) SetSAdd(ctx context.Context, key string, members []string) (int64, error) {
+	// convert []string to []interface{}
+	interfaces := make([]interface{}, len(members))
+	for i, v := range members {
+		interfaces[i] = v
+	}
+	result := r.client.SAdd(ctx, key, interfaces...)
+	return result.Val(), result.Err()
+}
+
+// SetSRem removes members from a set
+func (r *RedisDAOImpl) SetSRem(ctx context.Context, key string, members []string) (int64, error) {
+	// convert []string to []interface{}
+	interfaces := make([]interface{}, len(members))
+	for i, v := range members {
+		interfaces[i] = v
+	}
+	result := r.client.SRem(ctx, key, interfaces...)
+	return result.Val(), result.Err()
+}
+
+// SetSIsMember checks if a member exists in a set
+func (r *RedisDAOImpl) SetSIsMember(ctx context.Context, key string, member string) (bool, error) {
+	result := r.client.SIsMember(ctx, key, member)
+	return result.Val(), result.Err()
+}
+
+// SetSMembers returns all members of a set
+func (r *RedisDAOImpl) SetSMembers(ctx context.Context, key string) ([]string, error) {
+	result := r.client.SMembers(ctx, key)
+	return result.Val(), result.Err()
+}
+
+// SetSCard returns the number of members in a set
+func (r *RedisDAOImpl) SetSCard(ctx context.Context, key string) (int64, error) {
+	result := r.client.SCard(ctx, key)
+	return result.Val(), result.Err()
+}
