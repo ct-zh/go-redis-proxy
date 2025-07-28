@@ -20,17 +20,21 @@ func InitializeContainer() (*Container, func(), error) {
 	redisStringServiceImpl := service.NewRedisStringService(redisDAOImpl)
 	redisListServiceImpl := service.NewRedisListService(redisDAOImpl)
 	redisSetServiceImpl := service.NewRedisSetService(redisDAOImpl)
+	redisZSetService := service.NewRedisZSetService(redisDAOImpl)
 	redisHandler := handler.NewRedisHandler(redisStringServiceImpl, redisListServiceImpl)
 	redisListHandler := handler.NewRedisListHandler(redisListServiceImpl)
 	redisSetHandler := handler.NewRedisSetHandler(redisSetServiceImpl)
+	redisZSetHandler := handler.NewRedisZSetHandler(redisZSetService)
 	container := &Container{
 		RedisDAO:         redisDAOImpl,
 		StringService:    redisStringServiceImpl,
 		ListService:      redisListServiceImpl,
 		SetService:       redisSetServiceImpl,
+		ZSetService:      redisZSetService,
 		RedisHandler:     redisHandler,
 		RedisListHandler: redisListHandler,
 		RedisSetHandler:  redisSetHandler,
+		RedisZSetHandler: redisZSetHandler,
 	}
 	return container, func() {
 	}, nil
@@ -47,12 +51,14 @@ type Container struct {
 	StringService service.RedisStringService
 	ListService   service.RedisListService
 	SetService    service.RedisSetService
+	ZSetService   service.RedisZSetService
 
 	// Handler layer
 	RedisHandler     *handler.RedisHandler
 	RedisListHandler *handler.RedisListHandler
 	RedisSetHandler  *handler.RedisSetHandler
+	RedisZSetHandler *handler.RedisZSetHandler
 }
 
 // buildProvider
-var buildProvider = wire.NewSet(wire.Bind(new(dao.RedisDAO), new(*dao.RedisDAOImpl)), dao.NewRedisDAO, wire.Bind(new(service.RedisStringService), new(*service.RedisStringServiceImpl)), service.NewRedisStringService, wire.Bind(new(service.RedisListService), new(*service.RedisListServiceImpl)), service.NewRedisListService, wire.Bind(new(service.RedisSetService), new(*service.RedisSetServiceImpl)), service.NewRedisSetService, handler.NewRedisHandler, handler.NewRedisListHandler, handler.NewRedisSetHandler, wire.Struct(new(Container), "*"))
+var buildProvider = wire.NewSet(wire.Bind(new(dao.RedisDAO), new(*dao.RedisDAOImpl)), dao.NewRedisDAO, wire.Bind(new(service.RedisStringService), new(*service.RedisStringServiceImpl)), service.NewRedisStringService, wire.Bind(new(service.RedisListService), new(*service.RedisListServiceImpl)), service.NewRedisListService, wire.Bind(new(service.RedisSetService), new(*service.RedisSetServiceImpl)), service.NewRedisSetService, service.NewRedisZSetService, handler.NewRedisHandler, handler.NewRedisListHandler, handler.NewRedisSetHandler, handler.NewRedisZSetHandler, wire.Struct(new(Container), "*"))

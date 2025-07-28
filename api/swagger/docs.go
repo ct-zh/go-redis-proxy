@@ -41,7 +41,8 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.PingResponse"
+                            "type": "object",
+                            "additionalProperties": true
                         }
                     }
                 }
@@ -49,7 +50,7 @@ const docTemplate = `{
         },
         "/redis/list/lindex": {
             "post": {
-                "description": "获取列表指定索引位置的元素",
+                "description": "通过索引获取列表中的元素",
                 "consumes": [
                     "application/json"
                 ],
@@ -75,19 +76,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.ListLIndexResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -95,7 +96,7 @@ const docTemplate = `{
         },
         "/redis/list/llen": {
             "post": {
-                "description": "获取列表的长度",
+                "description": "获取列表长度",
                 "consumes": [
                     "application/json"
                 ],
@@ -121,19 +122,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.ListLLenResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -141,7 +142,7 @@ const docTemplate = `{
         },
         "/redis/list/lpop": {
             "post": {
-                "description": "从列表左侧弹出一个值",
+                "description": "移出并获取列表的第一个元素",
                 "consumes": [
                     "application/json"
                 ],
@@ -167,19 +168,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.ListLPopResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -187,7 +188,7 @@ const docTemplate = `{
         },
         "/redis/list/lpush": {
             "post": {
-                "description": "从列表左侧推入一个或多个值",
+                "description": "将一个或多个值插入到列表头部",
                 "consumes": [
                     "application/json"
                 ],
@@ -213,19 +214,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.ListLPushResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -259,19 +260,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.ListLRangeResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -279,7 +280,7 @@ const docTemplate = `{
         },
         "/redis/list/lrem": {
             "post": {
-                "description": "从列表中删除指定数量的元素",
+                "description": "根据参数count的值，移除列表中与参数value相等的元素",
                 "consumes": [
                     "application/json"
                 ],
@@ -305,19 +306,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.ListLRemResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -325,7 +326,7 @@ const docTemplate = `{
         },
         "/redis/list/ltrim": {
             "post": {
-                "description": "修剪列表，只保留指定范围内的元素",
+                "description": "对一个列表进行修剪，让列表只保留指定区间内的元素",
                 "consumes": [
                     "application/json"
                 ],
@@ -351,19 +352,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.ListLTrimResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -371,7 +372,7 @@ const docTemplate = `{
         },
         "/redis/list/rpop": {
             "post": {
-                "description": "从列表右侧弹出一个值",
+                "description": "移出并获取列表的最后一个元素",
                 "consumes": [
                     "application/json"
                 ],
@@ -397,19 +398,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.ListRPopResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -417,7 +418,7 @@ const docTemplate = `{
         },
         "/redis/list/rpush": {
             "post": {
-                "description": "从列表右侧推入一个或多个值",
+                "description": "将一个或多个值插入到列表尾部",
                 "consumes": [
                     "application/json"
                 ],
@@ -443,19 +444,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.ListRPushResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -463,7 +464,7 @@ const docTemplate = `{
         },
         "/redis/string/decr": {
             "post": {
-                "description": "将指定key的值减少1",
+                "description": "将指定key的值减1",
                 "consumes": [
                     "application/json"
                 ],
@@ -489,19 +490,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.StringDecrResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -535,19 +536,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.StringDelResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -581,19 +582,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.StringExistsResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -627,19 +628,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.StringExpireResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -673,19 +674,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.StringGetResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -693,7 +694,7 @@ const docTemplate = `{
         },
         "/redis/string/incr": {
             "post": {
-                "description": "将指定key的值增加1",
+                "description": "将指定key的值加1",
                 "consumes": [
                     "application/json"
                 ],
@@ -719,19 +720,19 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.StringIncrResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -765,19 +766,663 @@ const docTemplate = `{
                     "200": {
                         "description": "成功响应",
                         "schema": {
-                            "$ref": "#/definitions/types.StringSetResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "400": {
                         "description": "请求参数错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     },
                     "500": {
                         "description": "服务器内部错误",
                         "schema": {
-                            "$ref": "#/definitions/types.ErrorResponse"
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zadd": {
+            "post": {
+                "description": "将一个或多个成员元素及其分数值加入到有序集合中",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZADD操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZAddRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zcard": {
+            "post": {
+                "description": "获取有序集合的成员数",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZCARD操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZCardRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zcount": {
+            "post": {
+                "description": "计算在有序集合中指定区间分数的成员数",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZCOUNT操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZCountRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zincrby": {
+            "post": {
+                "description": "对有序集合中指定成员的分数加上增量increment",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZINCRBY操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZIncrByRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zrange": {
+            "post": {
+                "description": "通过索引区间返回有序集合成指定区间内的成员（分数从小到大）",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZRANGE操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZRangeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zrangebyscore": {
+            "post": {
+                "description": "通过分数返回有序集合指定区间内的成员（分数从小到大）",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZRANGEBYSCORE操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZRangeByScoreRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zrank": {
+            "post": {
+                "description": "返回有序集合中指定成员的排名，从0开始（分数从小到大）",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZRANK操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZRankRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zrem": {
+            "post": {
+                "description": "移除有序集合中的一个或多个成员",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZREM操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZRemRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zremrangebyrank": {
+            "post": {
+                "description": "移除有序集合中给定的排名区间的所有成员",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZREMRANGEBYRANK操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZRemRangeByRankRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zremrangebyscore": {
+            "post": {
+                "description": "移除有序集合中给定的分数区间的所有成员",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZREMRANGEBYSCORE操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZRemRangeByScoreRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zrevrange": {
+            "post": {
+                "description": "通过索引区间返回有序集合成指定区间内的成员（分数从大到小）",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZREVRANGE操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZRevRangeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zrevrangebyscore": {
+            "post": {
+                "description": "通过分数返回有序集合指定区间内的成员（分数从大到小）",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZREVRANGEBYSCORE操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZRevRangeByScoreRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zrevrank": {
+            "post": {
+                "description": "返回有序集合中指定成员的排名，从0开始（分数从大到小）",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZREVRANK操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZRevRankRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/zset/zscore": {
+            "post": {
+                "description": "返回有序集合中指定成员的分数值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis ZSet Operations"
+                ],
+                "summary": "Redis有序集合ZSCORE操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ZSetZScoreRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/response.BaseResponse"
                         }
                     }
                 }
@@ -785,10 +1430,17 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "types.ErrorResponse": {
+        "response.BaseResponse": {
             "type": "object",
             "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {},
                 "error": {
+                    "type": "string"
+                },
+                "message": {
                     "type": "string"
                 }
             }
@@ -814,25 +1466,6 @@ const docTemplate = `{
                 }
             }
         },
-        "types.ListLIndexResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "value": {
-                            "description": "指定索引的值，可能为null"
-                        }
-                    }
-                },
-                "msg": {
-                    "type": "string"
-                }
-            }
-        },
         "types.ListLLenRequest": {
             "type": "object",
             "properties": {
@@ -850,26 +1483,6 @@ const docTemplate = `{
                 }
             }
         },
-        "types.ListLLenResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "length": {
-                            "description": "列表长度",
-                            "type": "integer"
-                        }
-                    }
-                },
-                "msg": {
-                    "type": "string"
-                }
-            }
-        },
         "types.ListLPopRequest": {
             "type": "object",
             "properties": {
@@ -883,25 +1496,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
-                    "type": "string"
-                }
-            }
-        },
-        "types.ListLPopResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "value": {
-                            "description": "弹出的值，可能为null"
-                        }
-                    }
-                },
-                "msg": {
                     "type": "string"
                 }
             }
@@ -930,26 +1524,6 @@ const docTemplate = `{
                 }
             }
         },
-        "types.ListLPushResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "length": {
-                            "description": "推入后列表的长度",
-                            "type": "integer"
-                        }
-                    }
-                },
-                "msg": {
-                    "type": "string"
-                }
-            }
-        },
         "types.ListLRangeRequest": {
             "type": "object",
             "properties": {
@@ -975,29 +1549,6 @@ const docTemplate = `{
                 }
             }
         },
-        "types.ListLRangeResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "values": {
-                            "description": "范围内的值数组",
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                },
-                "msg": {
-                    "type": "string"
-                }
-            }
-        },
         "types.ListLRemRequest": {
             "type": "object",
             "properties": {
@@ -1019,26 +1570,6 @@ const docTemplate = `{
                 },
                 "value": {
                     "description": "要删除的值",
-                    "type": "string"
-                }
-            }
-        },
-        "types.ListLRemResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "removed": {
-                            "description": "删除的元素数量",
-                            "type": "integer"
-                        }
-                    }
-                },
-                "msg": {
                     "type": "string"
                 }
             }
@@ -1068,26 +1599,6 @@ const docTemplate = `{
                 }
             }
         },
-        "types.ListLTrimResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "result": {
-                            "description": "操作结果，通常为\"OK\"",
-                            "type": "string"
-                        }
-                    }
-                },
-                "msg": {
-                    "type": "string"
-                }
-            }
-        },
         "types.ListRPopRequest": {
             "type": "object",
             "properties": {
@@ -1101,25 +1612,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
-                    "type": "string"
-                }
-            }
-        },
-        "types.ListRPopResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "value": {
-                            "description": "弹出的值，可能为null"
-                        }
-                    }
-                },
-                "msg": {
                     "type": "string"
                 }
             }
@@ -1148,45 +1640,6 @@ const docTemplate = `{
                 }
             }
         },
-        "types.ListRPushResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "length": {
-                            "description": "推入后列表的长度",
-                            "type": "integer"
-                        }
-                    }
-                },
-                "msg": {
-                    "type": "string"
-                }
-            }
-        },
-        "types.PingResponse": {
-            "type": "object",
-            "properties": {
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "message": {
-                            "type": "string"
-                        },
-                        "timestamp": {
-                            "type": "string"
-                        }
-                    }
-                },
-                "success": {
-                    "type": "boolean"
-                }
-            }
-        },
         "types.StringDecrRequest": {
             "type": "object",
             "properties": {
@@ -1200,26 +1653,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
-                    "type": "string"
-                }
-            }
-        },
-        "types.StringDecrResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "value": {
-                            "description": "减少后的值",
-                            "type": "integer"
-                        }
-                    }
-                },
-                "msg": {
                     "type": "string"
                 }
             }
@@ -1241,26 +1674,6 @@ const docTemplate = `{
                 }
             }
         },
-        "types.StringDelResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "deleted": {
-                            "description": "删除的键数量",
-                            "type": "integer"
-                        }
-                    }
-                },
-                "msg": {
-                    "type": "string"
-                }
-            }
-        },
         "types.StringExistsRequest": {
             "type": "object",
             "properties": {
@@ -1274,25 +1687,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
-                    "type": "string"
-                }
-            }
-        },
-        "types.StringExistsResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "exists": {
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "msg": {
                     "type": "string"
                 }
             }
@@ -1318,26 +1712,6 @@ const docTemplate = `{
                 }
             }
         },
-        "types.StringExpireResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "success": {
-                            "description": "是否设置成功",
-                            "type": "boolean"
-                        }
-                    }
-                },
-                "msg": {
-                    "type": "string"
-                }
-            }
-        },
         "types.StringGetRequest": {
             "type": "object",
             "properties": {
@@ -1355,23 +1729,6 @@ const docTemplate = `{
                 }
             }
         },
-        "types.StringGetResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "value": {}
-                    }
-                },
-                "msg": {
-                    "type": "string"
-                }
-            }
-        },
         "types.StringIncrRequest": {
             "type": "object",
             "properties": {
@@ -1385,26 +1742,6 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "password": {
-                    "type": "string"
-                }
-            }
-        },
-        "types.StringIncrResponse": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {
-                    "type": "object",
-                    "properties": {
-                        "value": {
-                            "description": "增加后的值",
-                            "type": "integer"
-                        }
-                    }
-                },
-                "msg": {
                     "type": "string"
                 }
             }
@@ -1433,21 +1770,343 @@ const docTemplate = `{
                 }
             }
         },
-        "types.StringSetResponse": {
+        "types.ZSetZAddRequest": {
             "type": "object",
             "properties": {
-                "code": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
                     "type": "integer"
                 },
-                "data": {
+                "key": {
+                    "type": "string"
+                },
+                "members": {
+                    "description": "member -\u003e score 映射",
                     "type": "object",
-                    "properties": {
-                        "result": {
-                            "type": "string"
-                        }
+                    "additionalProperties": {
+                        "type": "number",
+                        "format": "float64"
                     }
                 },
-                "msg": {
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ZSetZCardRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ZSetZCountRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "max": {
+                    "type": "number"
+                },
+                "min": {
+                    "type": "number"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ZSetZIncrByRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "increment": {
+                    "type": "number"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "member": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ZSetZRangeByScoreRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "max": {
+                    "description": "支持 -inf, +inf, (value 等格式",
+                    "type": "string"
+                },
+                "min": {
+                    "description": "支持 -inf, +inf, (value 等格式",
+                    "type": "string"
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "with_scores": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "types.ZSetZRangeRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "integer"
+                },
+                "stop": {
+                    "type": "integer"
+                },
+                "with_scores": {
+                    "description": "是否返回分数",
+                    "type": "boolean"
+                }
+            }
+        },
+        "types.ZSetZRankRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "member": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ZSetZRemRangeByRankRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "integer"
+                },
+                "stop": {
+                    "type": "integer"
+                }
+            }
+        },
+        "types.ZSetZRemRangeByScoreRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "max": {
+                    "description": "支持 -inf, +inf, (value 等格式",
+                    "type": "string"
+                },
+                "min": {
+                    "description": "支持 -inf, +inf, (value 等格式",
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ZSetZRemRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "members": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ZSetZRevRangeByScoreRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "count": {
+                    "type": "integer"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "max": {
+                    "description": "支持 -inf, +inf, (value 等格式",
+                    "type": "string"
+                },
+                "min": {
+                    "description": "支持 -inf, +inf, (value 等格式",
+                    "type": "string"
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "with_scores": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "types.ZSetZRevRangeRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "start": {
+                    "type": "integer"
+                },
+                "stop": {
+                    "type": "integer"
+                },
+                "with_scores": {
+                    "description": "是否返回分数",
+                    "type": "boolean"
+                }
+            }
+        },
+        "types.ZSetZRevRankRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "member": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ZSetZScoreRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "member": {
+                    "type": "string"
+                },
+                "password": {
                     "type": "string"
                 }
             }

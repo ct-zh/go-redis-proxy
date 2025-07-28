@@ -39,7 +39,6 @@ var buildProvider = wire.NewSet(
 	service.NewRedisListService,
 	wire.Bind(new(service.RedisSetService), new(*service.RedisSetServiceImpl)),
 	service.NewRedisSetService,
-	wire.Bind(new(service.RedisZSetService), new(*service.RedisZSetServiceImpl)),
 	service.NewRedisZSetService,
 
 	handler.NewRedisHandler,

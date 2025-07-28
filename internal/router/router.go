@@ -53,6 +53,25 @@ func SetupWithContainer(engine *gin.Engine, container *container.Container) {
 				setGroup.POST("/smembers", container.RedisSetHandler.SMembers)
 				setGroup.POST("/scard", container.RedisSetHandler.SCard)
 			}
+
+			// ZSet operations
+			zsetGroup := redis.Group("/zset")
+			{
+				zsetGroup.POST("/zadd", container.RedisZSetHandler.RedisZSetZAdd)
+				zsetGroup.POST("/zincrby", container.RedisZSetHandler.RedisZSetZIncrBy)
+				zsetGroup.POST("/zscore", container.RedisZSetHandler.RedisZSetZScore)
+				zsetGroup.POST("/zcard", container.RedisZSetHandler.RedisZSetZCard)
+				zsetGroup.POST("/zcount", container.RedisZSetHandler.RedisZSetZCount)
+				zsetGroup.POST("/zrank", container.RedisZSetHandler.RedisZSetZRank)
+				zsetGroup.POST("/zrevrank", container.RedisZSetHandler.RedisZSetZRevRank)
+				zsetGroup.POST("/zrange", container.RedisZSetHandler.RedisZSetZRange)
+				zsetGroup.POST("/zrevrange", container.RedisZSetHandler.RedisZSetZRevRange)
+				zsetGroup.POST("/zrangebyscore", container.RedisZSetHandler.RedisZSetZRangeByScore)
+				zsetGroup.POST("/zrevrangebyscore", container.RedisZSetHandler.RedisZSetZRevRangeByScore)
+				zsetGroup.POST("/zrem", container.RedisZSetHandler.RedisZSetZRem)
+				zsetGroup.POST("/zremrangebyrank", container.RedisZSetHandler.RedisZSetZRemRangeByRank)
+				zsetGroup.POST("/zremrangebyscore", container.RedisZSetHandler.RedisZSetZRemRangeByScore)
+			}
 		}
 	}
 }

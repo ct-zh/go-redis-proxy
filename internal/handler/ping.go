@@ -13,7 +13,7 @@ import (
 // @Tags Health
 // @Accept json
 // @Produce json
-// @Success 200 {object} types.PingResponse "成功响应"
+// @Success 200 {object} map[string]interface{} "成功响应"
 // @Router /ping [get]
 func Ping(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{

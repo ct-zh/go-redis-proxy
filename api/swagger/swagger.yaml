@@ -1,8 +1,13 @@
 basePath: /api/v1
 definitions:
-  types.ErrorResponse:
+  response.BaseResponse:
     properties:
+      code:
+        type: integer
+      data: {}
       error:
+        type: string
+      message:
         type: string
     type: object
   types.ListLIndexRequest:
@@ -19,18 +24,6 @@ definitions:
       password:
         type: string
     type: object
-  types.ListLIndexResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          value:
-            description: 指定索引的值，可能为null
-        type: object
-      msg:
-        type: string
-    type: object
   types.ListLLenRequest:
     properties:
       addr:
@@ -42,19 +35,6 @@ definitions:
       password:
         type: string
     type: object
-  types.ListLLenResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          length:
-            description: 列表长度
-            type: integer
-        type: object
-      msg:
-        type: string
-    type: object
   types.ListLPopRequest:
     properties:
       addr:
@@ -64,18 +44,6 @@ definitions:
       key:
         type: string
       password:
-        type: string
-    type: object
-  types.ListLPopResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          value:
-            description: 弹出的值，可能为null
-        type: object
-      msg:
         type: string
     type: object
   types.ListLPushRequest:
@@ -94,19 +62,6 @@ definitions:
           type: string
         type: array
     type: object
-  types.ListLPushResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          length:
-            description: 推入后列表的长度
-            type: integer
-        type: object
-      msg:
-        type: string
-    type: object
   types.ListLRangeRequest:
     properties:
       addr:
@@ -124,21 +79,6 @@ definitions:
         description: 结束索引
         type: integer
     type: object
-  types.ListLRangeResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          values:
-            description: 范围内的值数组
-            items:
-              type: string
-            type: array
-        type: object
-      msg:
-        type: string
-    type: object
   types.ListLRemRequest:
     properties:
       addr:
@@ -154,19 +94,6 @@ definitions:
         type: string
       value:
         description: 要删除的值
-        type: string
-    type: object
-  types.ListLRemResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          removed:
-            description: 删除的元素数量
-            type: integer
-        type: object
-      msg:
         type: string
     type: object
   types.ListLTrimRequest:
@@ -186,19 +113,6 @@ definitions:
         description: 结束索引
         type: integer
     type: object
-  types.ListLTrimResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          result:
-            description: 操作结果，通常为"OK"
-            type: string
-        type: object
-      msg:
-        type: string
-    type: object
   types.ListRPopRequest:
     properties:
       addr:
@@ -208,18 +122,6 @@ definitions:
       key:
         type: string
       password:
-        type: string
-    type: object
-  types.ListRPopResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          value:
-            description: 弹出的值，可能为null
-        type: object
-      msg:
         type: string
     type: object
   types.ListRPushRequest:
@@ -238,31 +140,6 @@ definitions:
           type: string
         type: array
     type: object
-  types.ListRPushResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          length:
-            description: 推入后列表的长度
-            type: integer
-        type: object
-      msg:
-        type: string
-    type: object
-  types.PingResponse:
-    properties:
-      data:
-        properties:
-          message:
-            type: string
-          timestamp:
-            type: string
-        type: object
-      success:
-        type: boolean
-    type: object
   types.StringDecrRequest:
     properties:
       addr:
@@ -272,19 +149,6 @@ definitions:
       key:
         type: string
       password:
-        type: string
-    type: object
-  types.StringDecrResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          value:
-            description: 减少后的值
-            type: integer
-        type: object
-      msg:
         type: string
     type: object
   types.StringDelRequest:
@@ -298,19 +162,6 @@ definitions:
       password:
         type: string
     type: object
-  types.StringDelResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          deleted:
-            description: 删除的键数量
-            type: integer
-        type: object
-      msg:
-        type: string
-    type: object
   types.StringExistsRequest:
     properties:
       addr:
@@ -320,18 +171,6 @@ definitions:
       key:
         type: string
       password:
-        type: string
-    type: object
-  types.StringExistsResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          exists:
-            type: boolean
-        type: object
-      msg:
         type: string
     type: object
   types.StringExpireRequest:
@@ -348,19 +187,6 @@ definitions:
         description: 过期时间，单位秒
         type: integer
     type: object
-  types.StringExpireResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          success:
-            description: 是否设置成功
-            type: boolean
-        type: object
-      msg:
-        type: string
-    type: object
   types.StringGetRequest:
     properties:
       addr:
@@ -372,17 +198,6 @@ definitions:
       password:
         type: string
     type: object
-  types.StringGetResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          value: {}
-        type: object
-      msg:
-        type: string
-    type: object
   types.StringIncrRequest:
     properties:
       addr:
@@ -392,19 +207,6 @@ definitions:
       key:
         type: string
       password:
-        type: string
-    type: object
-  types.StringIncrResponse:
-    properties:
-      code:
-        type: integer
-      data:
-        properties:
-          value:
-            description: 增加后的值
-            type: integer
-        type: object
-      msg:
         type: string
     type: object
   types.StringSetRequest:
@@ -423,16 +225,230 @@ definitions:
       value:
         type: string
     type: object
-  types.StringSetResponse:
+  types.ZSetZAddRequest:
     properties:
-      code:
+      addr:
+        type: string
+      db:
         type: integer
-      data:
-        properties:
-          result:
-            type: string
+      key:
+        type: string
+      members:
+        additionalProperties:
+          format: float64
+          type: number
+        description: member -> score 映射
         type: object
-      msg:
+      password:
+        type: string
+    type: object
+  types.ZSetZCardRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.ZSetZCountRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      max:
+        type: number
+      min:
+        type: number
+      password:
+        type: string
+    type: object
+  types.ZSetZIncrByRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      increment:
+        type: number
+      key:
+        type: string
+      member:
+        type: string
+      password:
+        type: string
+    type: object
+  types.ZSetZRangeByScoreRequest:
+    properties:
+      addr:
+        type: string
+      count:
+        type: integer
+      db:
+        type: integer
+      key:
+        type: string
+      max:
+        description: 支持 -inf, +inf, (value 等格式
+        type: string
+      min:
+        description: 支持 -inf, +inf, (value 等格式
+        type: string
+      offset:
+        type: integer
+      password:
+        type: string
+      with_scores:
+        type: boolean
+    type: object
+  types.ZSetZRangeRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+      start:
+        type: integer
+      stop:
+        type: integer
+      with_scores:
+        description: 是否返回分数
+        type: boolean
+    type: object
+  types.ZSetZRankRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      member:
+        type: string
+      password:
+        type: string
+    type: object
+  types.ZSetZRemRangeByRankRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+      start:
+        type: integer
+      stop:
+        type: integer
+    type: object
+  types.ZSetZRemRangeByScoreRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      max:
+        description: 支持 -inf, +inf, (value 等格式
+        type: string
+      min:
+        description: 支持 -inf, +inf, (value 等格式
+        type: string
+      password:
+        type: string
+    type: object
+  types.ZSetZRemRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      members:
+        items:
+          type: string
+        type: array
+      password:
+        type: string
+    type: object
+  types.ZSetZRevRangeByScoreRequest:
+    properties:
+      addr:
+        type: string
+      count:
+        type: integer
+      db:
+        type: integer
+      key:
+        type: string
+      max:
+        description: 支持 -inf, +inf, (value 等格式
+        type: string
+      min:
+        description: 支持 -inf, +inf, (value 等格式
+        type: string
+      offset:
+        type: integer
+      password:
+        type: string
+      with_scores:
+        type: boolean
+    type: object
+  types.ZSetZRevRangeRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+      start:
+        type: integer
+      stop:
+        type: integer
+      with_scores:
+        description: 是否返回分数
+        type: boolean
+    type: object
+  types.ZSetZRevRankRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      member:
+        type: string
+      password:
+        type: string
+    type: object
+  types.ZSetZScoreRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      member:
+        type: string
+      password:
         type: string
     type: object
 host: localhost:8080
@@ -460,7 +476,8 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.PingResponse'
+            additionalProperties: true
+            type: object
       summary: Ping endpoint
       tags:
       - Health
@@ -468,7 +485,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 获取列表指定索引位置的元素
+      description: 通过索引获取列表中的元素
       parameters:
       - description: 请求参数
         in: body
@@ -482,15 +499,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.ListLIndexResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis列表LINDEX操作
       tags:
       - Redis List Operations
@@ -498,7 +515,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 获取列表的长度
+      description: 获取列表长度
       parameters:
       - description: 请求参数
         in: body
@@ -512,15 +529,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.ListLLenResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis列表LLEN操作
       tags:
       - Redis List Operations
@@ -528,7 +545,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 从列表左侧弹出一个值
+      description: 移出并获取列表的第一个元素
       parameters:
       - description: 请求参数
         in: body
@@ -542,15 +559,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.ListLPopResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis列表LPOP操作
       tags:
       - Redis List Operations
@@ -558,7 +575,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 从列表左侧推入一个或多个值
+      description: 将一个或多个值插入到列表头部
       parameters:
       - description: 请求参数
         in: body
@@ -572,15 +589,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.ListLPushResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis列表LPUSH操作
       tags:
       - Redis List Operations
@@ -602,15 +619,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.ListLRangeResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis列表LRANGE操作
       tags:
       - Redis List Operations
@@ -618,7 +635,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 从列表中删除指定数量的元素
+      description: 根据参数count的值，移除列表中与参数value相等的元素
       parameters:
       - description: 请求参数
         in: body
@@ -632,15 +649,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.ListLRemResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis列表LREM操作
       tags:
       - Redis List Operations
@@ -648,7 +665,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 修剪列表，只保留指定范围内的元素
+      description: 对一个列表进行修剪，让列表只保留指定区间内的元素
       parameters:
       - description: 请求参数
         in: body
@@ -662,15 +679,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.ListLTrimResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis列表LTRIM操作
       tags:
       - Redis List Operations
@@ -678,7 +695,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 从列表右侧弹出一个值
+      description: 移出并获取列表的最后一个元素
       parameters:
       - description: 请求参数
         in: body
@@ -692,15 +709,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.ListRPopResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis列表RPOP操作
       tags:
       - Redis List Operations
@@ -708,7 +725,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 从列表右侧推入一个或多个值
+      description: 将一个或多个值插入到列表尾部
       parameters:
       - description: 请求参数
         in: body
@@ -722,15 +739,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.ListRPushResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis列表RPUSH操作
       tags:
       - Redis List Operations
@@ -738,7 +755,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 将指定key的值减少1
+      description: 将指定key的值减1
       parameters:
       - description: 请求参数
         in: body
@@ -752,15 +769,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.StringDecrResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis字符串DECR操作
       tags:
       - Redis String Operations
@@ -782,15 +799,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.StringDelResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis字符串DEL操作
       tags:
       - Redis String Operations
@@ -812,15 +829,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.StringExistsResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis字符串EXISTS操作
       tags:
       - Redis String Operations
@@ -842,15 +859,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.StringExpireResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis字符串EXPIRE操作
       tags:
       - Redis String Operations
@@ -872,15 +889,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.StringGetResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis字符串GET操作
       tags:
       - Redis String Operations
@@ -888,7 +905,7 @@ paths:
     post:
       consumes:
       - application/json
-      description: 将指定key的值增加1
+      description: 将指定key的值加1
       parameters:
       - description: 请求参数
         in: body
@@ -902,15 +919,15 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.StringIncrResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis字符串INCR操作
       tags:
       - Redis String Operations
@@ -932,18 +949,438 @@ paths:
         "200":
           description: 成功响应
           schema:
-            $ref: '#/definitions/types.StringSetResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "400":
           description: 请求参数错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
         "500":
           description: 服务器内部错误
           schema:
-            $ref: '#/definitions/types.ErrorResponse'
+            $ref: '#/definitions/response.BaseResponse'
       summary: Redis字符串SET操作
       tags:
       - Redis String Operations
+  /redis/zset/zadd:
+    post:
+      consumes:
+      - application/json
+      description: 将一个或多个成员元素及其分数值加入到有序集合中
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZAddRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZADD操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zcard:
+    post:
+      consumes:
+      - application/json
+      description: 获取有序集合的成员数
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZCardRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZCARD操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zcount:
+    post:
+      consumes:
+      - application/json
+      description: 计算在有序集合中指定区间分数的成员数
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZCountRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZCOUNT操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zincrby:
+    post:
+      consumes:
+      - application/json
+      description: 对有序集合中指定成员的分数加上增量increment
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZIncrByRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZINCRBY操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zrange:
+    post:
+      consumes:
+      - application/json
+      description: 通过索引区间返回有序集合成指定区间内的成员（分数从小到大）
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZRangeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZRANGE操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zrangebyscore:
+    post:
+      consumes:
+      - application/json
+      description: 通过分数返回有序集合指定区间内的成员（分数从小到大）
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZRangeByScoreRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZRANGEBYSCORE操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zrank:
+    post:
+      consumes:
+      - application/json
+      description: 返回有序集合中指定成员的排名，从0开始（分数从小到大）
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZRankRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZRANK操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zrem:
+    post:
+      consumes:
+      - application/json
+      description: 移除有序集合中的一个或多个成员
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZRemRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZREM操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zremrangebyrank:
+    post:
+      consumes:
+      - application/json
+      description: 移除有序集合中给定的排名区间的所有成员
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZRemRangeByRankRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZREMRANGEBYRANK操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zremrangebyscore:
+    post:
+      consumes:
+      - application/json
+      description: 移除有序集合中给定的分数区间的所有成员
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZRemRangeByScoreRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZREMRANGEBYSCORE操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zrevrange:
+    post:
+      consumes:
+      - application/json
+      description: 通过索引区间返回有序集合成指定区间内的成员（分数从大到小）
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZRevRangeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZREVRANGE操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zrevrangebyscore:
+    post:
+      consumes:
+      - application/json
+      description: 通过分数返回有序集合指定区间内的成员（分数从大到小）
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZRevRangeByScoreRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZREVRANGEBYSCORE操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zrevrank:
+    post:
+      consumes:
+      - application/json
+      description: 返回有序集合中指定成员的排名，从0开始（分数从大到小）
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZRevRankRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZREVRANK操作
+      tags:
+      - Redis ZSet Operations
+  /redis/zset/zscore:
+    post:
+      consumes:
+      - application/json
+      description: 返回有序集合中指定成员的分数值
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ZSetZScoreRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis有序集合ZSCORE操作
+      tags:
+      - Redis ZSet Operations
 schemes:
 - http
 - https
