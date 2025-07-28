@@ -5,6 +5,252 @@ definitions:
       error:
         type: string
     type: object
+  types.ListLIndexRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      index:
+        description: 索引位置
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.ListLIndexResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          value:
+            description: 指定索引的值，可能为null
+        type: object
+      msg:
+        type: string
+    type: object
+  types.ListLLenRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.ListLLenResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          length:
+            description: 列表长度
+            type: integer
+        type: object
+      msg:
+        type: string
+    type: object
+  types.ListLPopRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.ListLPopResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          value:
+            description: 弹出的值，可能为null
+        type: object
+      msg:
+        type: string
+    type: object
+  types.ListLPushRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+      values:
+        description: 要推入的值数组
+        items:
+          type: string
+        type: array
+    type: object
+  types.ListLPushResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          length:
+            description: 推入后列表的长度
+            type: integer
+        type: object
+      msg:
+        type: string
+    type: object
+  types.ListLRangeRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+      start:
+        description: 开始索引
+        type: integer
+      stop:
+        description: 结束索引
+        type: integer
+    type: object
+  types.ListLRangeResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          values:
+            description: 范围内的值数组
+            items:
+              type: string
+            type: array
+        type: object
+      msg:
+        type: string
+    type: object
+  types.ListLRemRequest:
+    properties:
+      addr:
+        type: string
+      count:
+        description: 删除的数量，0表示删除所有
+        type: integer
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+      value:
+        description: 要删除的值
+        type: string
+    type: object
+  types.ListLRemResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          removed:
+            description: 删除的元素数量
+            type: integer
+        type: object
+      msg:
+        type: string
+    type: object
+  types.ListLTrimRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+      start:
+        description: 开始索引
+        type: integer
+      stop:
+        description: 结束索引
+        type: integer
+    type: object
+  types.ListLTrimResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          result:
+            description: 操作结果，通常为"OK"
+            type: string
+        type: object
+      msg:
+        type: string
+    type: object
+  types.ListRPopRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.ListRPopResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          value:
+            description: 弹出的值，可能为null
+        type: object
+      msg:
+        type: string
+    type: object
+  types.ListRPushRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+      values:
+        description: 要推入的值数组
+        items:
+          type: string
+        type: array
+    type: object
+  types.ListRPushResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          length:
+            description: 推入后列表的长度
+            type: integer
+        type: object
+      msg:
+        type: string
+    type: object
   types.PingResponse:
     properties:
       data:
@@ -16,6 +262,104 @@ definitions:
         type: object
       success:
         type: boolean
+    type: object
+  types.StringDecrRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.StringDecrResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          value:
+            description: 减少后的值
+            type: integer
+        type: object
+      msg:
+        type: string
+    type: object
+  types.StringDelRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.StringDelResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          deleted:
+            description: 删除的键数量
+            type: integer
+        type: object
+      msg:
+        type: string
+    type: object
+  types.StringExistsRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.StringExistsResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          exists:
+            type: boolean
+        type: object
+      msg:
+        type: string
+    type: object
+  types.StringExpireRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+      ttl:
+        description: 过期时间，单位秒
+        type: integer
+    type: object
+  types.StringExpireResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          success:
+            description: 是否设置成功
+            type: boolean
+        type: object
+      msg:
+        type: string
     type: object
   types.StringGetRequest:
     properties:
@@ -35,6 +379,58 @@ definitions:
       data:
         properties:
           value: {}
+        type: object
+      msg:
+        type: string
+    type: object
+  types.StringIncrRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.StringIncrResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          value:
+            description: 增加后的值
+            type: integer
+        type: object
+      msg:
+        type: string
+    type: object
+  types.StringSetRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+      ttl:
+        description: 过期时间，单位秒，0表示不过期
+        type: integer
+      value:
+        type: string
+    type: object
+  types.StringSetResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          result:
+            type: string
         type: object
       msg:
         type: string
@@ -68,6 +464,396 @@ paths:
       summary: Ping endpoint
       tags:
       - Health
+  /redis/list/lindex:
+    post:
+      consumes:
+      - application/json
+      description: 获取列表指定索引位置的元素
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ListLIndexRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.ListLIndexResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis列表LINDEX操作
+      tags:
+      - Redis List Operations
+  /redis/list/llen:
+    post:
+      consumes:
+      - application/json
+      description: 获取列表的长度
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ListLLenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.ListLLenResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis列表LLEN操作
+      tags:
+      - Redis List Operations
+  /redis/list/lpop:
+    post:
+      consumes:
+      - application/json
+      description: 从列表左侧弹出一个值
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ListLPopRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.ListLPopResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis列表LPOP操作
+      tags:
+      - Redis List Operations
+  /redis/list/lpush:
+    post:
+      consumes:
+      - application/json
+      description: 从列表左侧推入一个或多个值
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ListLPushRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.ListLPushResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis列表LPUSH操作
+      tags:
+      - Redis List Operations
+  /redis/list/lrange:
+    post:
+      consumes:
+      - application/json
+      description: 获取列表指定范围内的元素
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ListLRangeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.ListLRangeResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis列表LRANGE操作
+      tags:
+      - Redis List Operations
+  /redis/list/lrem:
+    post:
+      consumes:
+      - application/json
+      description: 从列表中删除指定数量的元素
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ListLRemRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.ListLRemResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis列表LREM操作
+      tags:
+      - Redis List Operations
+  /redis/list/ltrim:
+    post:
+      consumes:
+      - application/json
+      description: 修剪列表，只保留指定范围内的元素
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ListLTrimRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.ListLTrimResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis列表LTRIM操作
+      tags:
+      - Redis List Operations
+  /redis/list/rpop:
+    post:
+      consumes:
+      - application/json
+      description: 从列表右侧弹出一个值
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ListRPopRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.ListRPopResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis列表RPOP操作
+      tags:
+      - Redis List Operations
+  /redis/list/rpush:
+    post:
+      consumes:
+      - application/json
+      description: 从列表右侧推入一个或多个值
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.ListRPushRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.ListRPushResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis列表RPUSH操作
+      tags:
+      - Redis List Operations
+  /redis/string/decr:
+    post:
+      consumes:
+      - application/json
+      description: 将指定key的值减少1
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.StringDecrRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.StringDecrResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis字符串DECR操作
+      tags:
+      - Redis String Operations
+  /redis/string/del:
+    post:
+      consumes:
+      - application/json
+      description: 删除指定的key
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.StringDelRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.StringDelResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis字符串DEL操作
+      tags:
+      - Redis String Operations
+  /redis/string/exists:
+    post:
+      consumes:
+      - application/json
+      description: 检查指定key是否存在
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.StringExistsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.StringExistsResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis字符串EXISTS操作
+      tags:
+      - Redis String Operations
+  /redis/string/expire:
+    post:
+      consumes:
+      - application/json
+      description: 为指定key设置过期时间
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.StringExpireRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.StringExpireResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis字符串EXPIRE操作
+      tags:
+      - Redis String Operations
   /redis/string/get:
     post:
       consumes:
@@ -96,6 +882,66 @@ paths:
           schema:
             $ref: '#/definitions/types.ErrorResponse'
       summary: Redis字符串GET操作
+      tags:
+      - Redis String Operations
+  /redis/string/incr:
+    post:
+      consumes:
+      - application/json
+      description: 将指定key的值增加1
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.StringIncrRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.StringIncrResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis字符串INCR操作
+      tags:
+      - Redis String Operations
+  /redis/string/set:
+    post:
+      consumes:
+      - application/json
+      description: 设置指定key的字符串值，支持TTL过期时间
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.StringSetRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.StringSetResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis字符串SET操作
       tags:
       - Redis String Operations
 schemes:

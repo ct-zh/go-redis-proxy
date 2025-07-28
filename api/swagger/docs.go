@@ -47,6 +47,604 @@ const docTemplate = `{
                 }
             }
         },
+        "/redis/list/lindex": {
+            "post": {
+                "description": "获取列表指定索引位置的元素",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis List Operations"
+                ],
+                "summary": "Redis列表LINDEX操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLIndexRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLIndexResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/list/llen": {
+            "post": {
+                "description": "获取列表的长度",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis List Operations"
+                ],
+                "summary": "Redis列表LLEN操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLLenRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLLenResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/list/lpop": {
+            "post": {
+                "description": "从列表左侧弹出一个值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis List Operations"
+                ],
+                "summary": "Redis列表LPOP操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLPopRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLPopResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/list/lpush": {
+            "post": {
+                "description": "从列表左侧推入一个或多个值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis List Operations"
+                ],
+                "summary": "Redis列表LPUSH操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLPushRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLPushResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/list/lrange": {
+            "post": {
+                "description": "获取列表指定范围内的元素",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis List Operations"
+                ],
+                "summary": "Redis列表LRANGE操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLRangeRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLRangeResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/list/lrem": {
+            "post": {
+                "description": "从列表中删除指定数量的元素",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis List Operations"
+                ],
+                "summary": "Redis列表LREM操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLRemRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLRemResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/list/ltrim": {
+            "post": {
+                "description": "修剪列表，只保留指定范围内的元素",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis List Operations"
+                ],
+                "summary": "Redis列表LTRIM操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLTrimRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.ListLTrimResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/list/rpop": {
+            "post": {
+                "description": "从列表右侧弹出一个值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis List Operations"
+                ],
+                "summary": "Redis列表RPOP操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ListRPopRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.ListRPopResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/list/rpush": {
+            "post": {
+                "description": "从列表右侧推入一个或多个值",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis List Operations"
+                ],
+                "summary": "Redis列表RPUSH操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.ListRPushRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.ListRPushResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/string/decr": {
+            "post": {
+                "description": "将指定key的值减少1",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis String Operations"
+                ],
+                "summary": "Redis字符串DECR操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.StringDecrRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.StringDecrResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/string/del": {
+            "post": {
+                "description": "删除指定的key",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis String Operations"
+                ],
+                "summary": "Redis字符串DEL操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.StringDelRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.StringDelResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/string/exists": {
+            "post": {
+                "description": "检查指定key是否存在",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis String Operations"
+                ],
+                "summary": "Redis字符串EXISTS操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.StringExistsRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.StringExistsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/string/expire": {
+            "post": {
+                "description": "为指定key设置过期时间",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis String Operations"
+                ],
+                "summary": "Redis字符串EXPIRE操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.StringExpireRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.StringExpireResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/redis/string/get": {
             "post": {
                 "description": "根据指定的key获取Redis中存储的字符串值",
@@ -92,6 +690,98 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/redis/string/incr": {
+            "post": {
+                "description": "将指定key的值增加1",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis String Operations"
+                ],
+                "summary": "Redis字符串INCR操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.StringIncrRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.StringIncrResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/redis/string/set": {
+            "post": {
+                "description": "设置指定key的字符串值，支持TTL过期时间",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Redis String Operations"
+                ],
+                "summary": "Redis字符串SET操作",
+                "parameters": [
+                    {
+                        "description": "请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/types.StringSetRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功响应",
+                        "schema": {
+                            "$ref": "#/definitions/types.StringSetResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "请求参数错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "服务器内部错误",
+                        "schema": {
+                            "$ref": "#/definitions/types.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -99,6 +789,381 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "error": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListLIndexRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "index": {
+                    "description": "索引位置",
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListLIndexResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "description": "指定索引的值，可能为null"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListLLenRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListLLenResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "length": {
+                            "description": "列表长度",
+                            "type": "integer"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListLPopRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListLPopResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "description": "弹出的值，可能为null"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListLPushRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "values": {
+                    "description": "要推入的值数组",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "types.ListLPushResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "length": {
+                            "description": "推入后列表的长度",
+                            "type": "integer"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListLRangeRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "start": {
+                    "description": "开始索引",
+                    "type": "integer"
+                },
+                "stop": {
+                    "description": "结束索引",
+                    "type": "integer"
+                }
+            }
+        },
+        "types.ListLRangeResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "values": {
+                            "description": "范围内的值数组",
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListLRemRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "count": {
+                    "description": "删除的数量，0表示删除所有",
+                    "type": "integer"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "value": {
+                    "description": "要删除的值",
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListLRemResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "removed": {
+                            "description": "删除的元素数量",
+                            "type": "integer"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListLTrimRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "start": {
+                    "description": "开始索引",
+                    "type": "integer"
+                },
+                "stop": {
+                    "description": "结束索引",
+                    "type": "integer"
+                }
+            }
+        },
+        "types.ListLTrimResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                            "description": "操作结果，通常为\"OK\"",
+                            "type": "string"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListRPopRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListRPopResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "description": "弹出的值，可能为null"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.ListRPushRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "values": {
+                    "description": "要推入的值数组",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "types.ListRPushResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "length": {
+                            "description": "推入后列表的长度",
+                            "type": "integer"
+                        }
+                    }
+                },
+                "msg": {
                     "type": "string"
                 }
             }
@@ -119,6 +1184,157 @@ const docTemplate = `{
                 },
                 "success": {
                     "type": "boolean"
+                }
+            }
+        },
+        "types.StringDecrRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.StringDecrResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "description": "减少后的值",
+                            "type": "integer"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.StringDelRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.StringDelResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "deleted": {
+                            "description": "删除的键数量",
+                            "type": "integer"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.StringExistsRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.StringExistsResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "exists": {
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.StringExpireRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "ttl": {
+                    "description": "过期时间，单位秒",
+                    "type": "integer"
+                }
+            }
+        },
+        "types.StringExpireResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "success": {
+                            "description": "是否设置成功",
+                            "type": "boolean"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
                 }
             }
         },
@@ -149,6 +1365,86 @@ const docTemplate = `{
                     "type": "object",
                     "properties": {
                         "value": {}
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.StringIncrRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.StringIncrResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "description": "增加后的值",
+                            "type": "integer"
+                        }
+                    }
+                },
+                "msg": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.StringSetRequest": {
+            "type": "object",
+            "properties": {
+                "addr": {
+                    "type": "string"
+                },
+                "db": {
+                    "type": "integer"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "ttl": {
+                    "description": "过期时间，单位秒，0表示不过期",
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.StringSetResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "result": {
+                            "type": "string"
+                        }
                     }
                 },
                 "msg": {
