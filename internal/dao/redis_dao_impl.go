@@ -2,6 +2,7 @@ package dao
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	redis "github.com/go-redis/redis/v8"
@@ -233,5 +234,219 @@ func (r *RedisDAOImpl) SetSMembers(ctx context.Context, key string) ([]string, e
 // SetSCard returns the number of members in a set
 func (r *RedisDAOImpl) SetSCard(ctx context.Context, key string) (int64, error) {
 	result := r.client.SCard(ctx, key)
+	return result.Val(), result.Err()
+}
+
+// ZSet operations
+
+// ZSetZAdd adds members with scores to a sorted set
+func (r *RedisDAOImpl) ZSetZAdd(ctx context.Context, key string, members map[string]float64) (int64, error) {
+	// convert map to []*redis.Z
+	zs := make([]*redis.Z, 0, len(members))
+	for member, score := range members {
+		zs = append(zs, &redis.Z{Score: score, Member: member})
+	}
+	result := r.client.ZAdd(ctx, key, zs...)
+	return result.Val(), result.Err()
+}
+
+// ZSetZIncrBy increments the score of a member in a sorted set
+func (r *RedisDAOImpl) ZSetZIncrBy(ctx context.Context, key string, increment float64, member string) (float64, error) {
+	result := r.client.ZIncrBy(ctx, key, increment, member)
+	return result.Val(), result.Err()
+}
+
+// ZSetZScore gets the score of a member in a sorted set
+func (r *RedisDAOImpl) ZSetZScore(ctx context.Context, key string, member string) (interface{}, error) {
+	result := r.client.ZScore(ctx, key, member)
+	if result.Err() == redis.Nil {
+		return nil, nil
+	}
+	if result.Err() != nil {
+		return nil, result.Err()
+	}
+	return result.Val(), nil
+}
+
+// ZSetZCard gets the number of members in a sorted set
+func (r *RedisDAOImpl) ZSetZCard(ctx context.Context, key string) (int64, error) {
+	result := r.client.ZCard(ctx, key)
+	return result.Val(), result.Err()
+}
+
+// ZSetZCount counts members in a sorted set within a score range
+func (r *RedisDAOImpl) ZSetZCount(ctx context.Context, key string, min, max float64) (int64, error) {
+	result := r.client.ZCount(ctx, key, fmt.Sprintf("%f", min), fmt.Sprintf("%f", max))
+	return result.Val(), result.Err()
+}
+
+// ZSetZRank gets the rank of a member in a sorted set (ascending order)
+func (r *RedisDAOImpl) ZSetZRank(ctx context.Context, key string, member string) (interface{}, error) {
+	result := r.client.ZRank(ctx, key, member)
+	if result.Err() == redis.Nil {
+		return nil, nil
+	}
+	if result.Err() != nil {
+		return nil, result.Err()
+	}
+	return result.Val(), nil
+}
+
+// ZSetZRevRank gets the rank of a member in a sorted set (descending order)
+func (r *RedisDAOImpl) ZSetZRevRank(ctx context.Context, key string, member string) (interface{}, error) {
+	result := r.client.ZRevRank(ctx, key, member)
+	if result.Err() == redis.Nil {
+		return nil, nil
+	}
+	if result.Err() != nil {
+		return nil, result.Err()
+	}
+	return result.Val(), nil
+}
+
+// ZSetZRange gets members from a sorted set by rank range (ascending order)
+func (r *RedisDAOImpl) ZSetZRange(ctx context.Context, key string, start, stop int64, withScores bool) ([]interface{}, error) {
+	var result []interface{}
+	var err error
+	
+	if withScores {
+		zResult := r.client.ZRangeWithScores(ctx, key, start, stop)
+		if zResult.Err() != nil {
+			return nil, zResult.Err()
+		}
+		for _, z := range zResult.Val() {
+			result = append(result, z.Member, z.Score)
+		}
+	} else {
+		strResult := r.client.ZRange(ctx, key, start, stop)
+		if strResult.Err() != nil {
+			return nil, strResult.Err()
+		}
+		for _, member := range strResult.Val() {
+			result = append(result, member)
+		}
+	}
+	
+	return result, err
+}
+
+// ZSetZRevRange gets members from a sorted set by rank range (descending order)
+func (r *RedisDAOImpl) ZSetZRevRange(ctx context.Context, key string, start, stop int64, withScores bool) ([]interface{}, error) {
+	var result []interface{}
+	var err error
+	
+	if withScores {
+		zResult := r.client.ZRevRangeWithScores(ctx, key, start, stop)
+		if zResult.Err() != nil {
+			return nil, zResult.Err()
+		}
+		for _, z := range zResult.Val() {
+			result = append(result, z.Member, z.Score)
+		}
+	} else {
+		strResult := r.client.ZRevRange(ctx, key, start, stop)
+		if strResult.Err() != nil {
+			return nil, strResult.Err()
+		}
+		for _, member := range strResult.Val() {
+			result = append(result, member)
+		}
+	}
+	
+	return result, err
+}
+
+// ZSetZRangeByScore gets members from a sorted set by score range (ascending order)
+func (r *RedisDAOImpl) ZSetZRangeByScore(ctx context.Context, key string, min, max string, withScores bool, offset, count int64) ([]interface{}, error) {
+	var result []interface{}
+	var err error
+	
+	opt := &redis.ZRangeBy{
+		Min: min,
+		Max: max,
+	}
+	
+	if count > 0 {
+		opt.Offset = offset
+		opt.Count = count
+	}
+	
+	if withScores {
+		zResult := r.client.ZRangeByScoreWithScores(ctx, key, opt)
+		if zResult.Err() != nil {
+			return nil, zResult.Err()
+		}
+		for _, z := range zResult.Val() {
+			result = append(result, z.Member, z.Score)
+		}
+	} else {
+		strResult := r.client.ZRangeByScore(ctx, key, opt)
+		if strResult.Err() != nil {
+			return nil, strResult.Err()
+		}
+		for _, member := range strResult.Val() {
+			result = append(result, member)
+		}
+	}
+	
+	return result, err
+}
+
+// ZSetZRevRangeByScore gets members from a sorted set by score range (descending order)
+func (r *RedisDAOImpl) ZSetZRevRangeByScore(ctx context.Context, key string, max, min string, withScores bool, offset, count int64) ([]interface{}, error) {
+	var result []interface{}
+	var err error
+	
+	opt := &redis.ZRangeBy{
+		Min: min,
+		Max: max,
+	}
+	
+	if count > 0 {
+		opt.Offset = offset
+		opt.Count = count
+	}
+	
+	if withScores {
+		zResult := r.client.ZRevRangeByScoreWithScores(ctx, key, opt)
+		if zResult.Err() != nil {
+			return nil, zResult.Err()
+		}
+		for _, z := range zResult.Val() {
+			result = append(result, z.Member, z.Score)
+		}
+	} else {
+		strResult := r.client.ZRevRangeByScore(ctx, key, opt)
+		if strResult.Err() != nil {
+			return nil, strResult.Err()
+		}
+		for _, member := range strResult.Val() {
+			result = append(result, member)
+		}
+	}
+	
+	return result, err
+}
+
+// ZSetZRem removes members from a sorted set
+func (r *RedisDAOImpl) ZSetZRem(ctx context.Context, key string, members []string) (int64, error) {
+	// convert []string to []interface{}
+	interfaces := make([]interface{}, len(members))
+	for i, v := range members {
+		interfaces[i] = v
+	}
+	result := r.client.ZRem(ctx, key, interfaces...)
+	return result.Val(), result.Err()
+}
+
+// ZSetZRemRangeByRank removes members from a sorted set by rank range
+func (r *RedisDAOImpl) ZSetZRemRangeByRank(ctx context.Context, key string, start, stop int64) (int64, error) {
+	result := r.client.ZRemRangeByRank(ctx, key, start, stop)
+	return result.Val(), result.Err()
+}
+
+// ZSetZRemRangeByScore removes members from a sorted set by score range
+func (r *RedisDAOImpl) ZSetZRemRangeByScore(ctx context.Context, key string, min, max string) (int64, error) {
+	result := r.client.ZRemRangeByScore(ctx, key, min, max)
 	return result.Val(), result.Err()
 }

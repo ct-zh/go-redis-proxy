@@ -19,11 +19,13 @@ type Container struct {
 	StringService service.RedisStringService
 	ListService   service.RedisListService
 	SetService    service.RedisSetService
+	ZSetService   service.RedisZSetService
 
 	// Handler layer
-	RedisHandler     *handler.RedisHandler
-	RedisListHandler *handler.RedisListHandler
-	RedisSetHandler  *handler.RedisSetHandler
+	RedisHandler      *handler.RedisHandler
+	RedisListHandler  *handler.RedisListHandler
+	RedisSetHandler   *handler.RedisSetHandler
+	RedisZSetHandler  *handler.RedisZSetHandler
 }
 
 // buildProvider
@@ -37,10 +39,13 @@ var buildProvider = wire.NewSet(
 	service.NewRedisListService,
 	wire.Bind(new(service.RedisSetService), new(*service.RedisSetServiceImpl)),
 	service.NewRedisSetService,
+	wire.Bind(new(service.RedisZSetService), new(*service.RedisZSetServiceImpl)),
+	service.NewRedisZSetService,
 
 	handler.NewRedisHandler,
 	handler.NewRedisListHandler,
 	handler.NewRedisSetHandler,
+	handler.NewRedisZSetHandler,
 
 	wire.Struct(new(Container), "*"),
 )

@@ -151,3 +151,118 @@ type RedisSCardRequest struct {
 	RedisRequest
 	Key string `json:"key"`
 }
+
+// ZSet操作请求类型
+
+// ZSetZAddRequest 定义了ZADD操作的请求体
+type ZSetZAddRequest struct {
+	RedisRequest
+	Key     string            `json:"key"`
+	Members map[string]float64 `json:"members"` // member -> score 映射
+}
+
+// ZSetZIncrByRequest 定义了ZINCRBY操作的请求体
+type ZSetZIncrByRequest struct {
+	RedisRequest
+	Key       string  `json:"key"`
+	Increment float64 `json:"increment"`
+	Member    string  `json:"member"`
+}
+
+// ZSetZScoreRequest 定义了ZSCORE操作的请求体
+type ZSetZScoreRequest struct {
+	RedisRequest
+	Key    string `json:"key"`
+	Member string `json:"member"`
+}
+
+// ZSetZCardRequest 定义了ZCARD操作的请求体
+type ZSetZCardRequest struct {
+	RedisRequest
+	Key string `json:"key"`
+}
+
+// ZSetZCountRequest 定义了ZCOUNT操作的请求体
+type ZSetZCountRequest struct {
+	RedisRequest
+	Key string  `json:"key"`
+	Min float64 `json:"min"`
+	Max float64 `json:"max"`
+}
+
+// ZSetZRankRequest 定义了ZRANK操作的请求体
+type ZSetZRankRequest struct {
+	RedisRequest
+	Key    string `json:"key"`
+	Member string `json:"member"`
+}
+
+// ZSetZRevRankRequest 定义了ZREVRANK操作的请求体
+type ZSetZRevRankRequest struct {
+	RedisRequest
+	Key    string `json:"key"`
+	Member string `json:"member"`
+}
+
+// ZSetZRangeRequest 定义了ZRANGE操作的请求体
+type ZSetZRangeRequest struct {
+	RedisRequest
+	Key        string `json:"key"`
+	Start      int64  `json:"start"`
+	Stop       int64  `json:"stop"`
+	WithScores bool   `json:"with_scores,omitempty"` // 是否返回分数
+}
+
+// ZSetZRevRangeRequest 定义了ZREVRANGE操作的请求体
+type ZSetZRevRangeRequest struct {
+	RedisRequest
+	Key        string `json:"key"`
+	Start      int64  `json:"start"`
+	Stop       int64  `json:"stop"`
+	WithScores bool   `json:"with_scores,omitempty"` // 是否返回分数
+}
+
+// ZSetZRangeByScoreRequest 定义了ZRANGEBYSCORE操作的请求体
+type ZSetZRangeByScoreRequest struct {
+	RedisRequest
+	Key        string `json:"key"`
+	Min        string `json:"min"` // 支持 -inf, +inf, (value 等格式
+	Max        string `json:"max"` // 支持 -inf, +inf, (value 等格式
+	WithScores bool   `json:"with_scores,omitempty"`
+	Offset     int64  `json:"offset,omitempty"`
+	Count      int64  `json:"count,omitempty"`
+}
+
+// ZSetZRevRangeByScoreRequest 定义了ZREVRANGEBYSCORE操作的请求体
+type ZSetZRevRangeByScoreRequest struct {
+	RedisRequest
+	Key        string `json:"key"`
+	Max        string `json:"max"` // 支持 -inf, +inf, (value 等格式
+	Min        string `json:"min"` // 支持 -inf, +inf, (value 等格式
+	WithScores bool   `json:"with_scores,omitempty"`
+	Offset     int64  `json:"offset,omitempty"`
+	Count      int64  `json:"count,omitempty"`
+}
+
+// ZSetZRemRequest 定义了ZREM操作的请求体
+type ZSetZRemRequest struct {
+	RedisRequest
+	Key     string   `json:"key"`
+	Members []string `json:"members"`
+}
+
+// ZSetZRemRangeByRankRequest 定义了ZREMRANGEBYRANK操作的请求体
+type ZSetZRemRangeByRankRequest struct {
+	RedisRequest
+	Key   string `json:"key"`
+	Start int64  `json:"start"`
+	Stop  int64  `json:"stop"`
+}
+
+// ZSetZRemRangeByScoreRequest 定义了ZREMRANGEBYSCORE操作的请求体
+type ZSetZRemRangeByScoreRequest struct {
+	RedisRequest
+	Key string `json:"key"`
+	Min string `json:"min"` // 支持 -inf, +inf, (value 等格式
+	Max string `json:"max"` // 支持 -inf, +inf, (value 等格式
+}

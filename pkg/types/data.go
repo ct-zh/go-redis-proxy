@@ -83,3 +83,81 @@ type ListLLenData struct {
 type ListLTrimData struct {
 	Result string `json:"result"`
 }
+
+// ZSet操作的业务数据类型
+
+// ZSetMember 表示ZSet成员及其分数
+type ZSetMember struct {
+	Member string  `json:"member"`
+	Score  float64 `json:"score"`
+}
+
+// ZSetZAddData ZSet ZADD操作的业务数据
+type ZSetZAddData struct {
+	Added int64 `json:"added"` // 新添加的成员数量
+}
+
+// ZSetZIncrByData ZSet ZINCRBY操作的业务数据
+type ZSetZIncrByData struct {
+	Score float64 `json:"score"` // 新的分数
+}
+
+// ZSetZScoreData ZSet ZSCORE操作的业务数据
+type ZSetZScoreData struct {
+	Score interface{} `json:"score"` // 分数，如果成员不存在则为nil
+}
+
+// ZSetZCardData ZSet ZCARD操作的业务数据
+type ZSetZCardData struct {
+	Count int64 `json:"count"` // 集合中元素的数量
+}
+
+// ZSetZCountData ZSet ZCOUNT操作的业务数据
+type ZSetZCountData struct {
+	Count int64 `json:"count"` // 指定分数范围内的元素数量
+}
+
+// ZSetZRankData ZSet ZRANK操作的业务数据
+type ZSetZRankData struct {
+	Rank interface{} `json:"rank"` // 排名，如果成员不存在则为nil
+}
+
+// ZSetZRevRankData ZSet ZREVRANK操作的业务数据
+type ZSetZRevRankData struct {
+	Rank interface{} `json:"rank"` // 排名，如果成员不存在则为nil
+}
+
+// ZSetZRangeData ZSet ZRANGE操作的业务数据
+type ZSetZRangeData struct {
+	Members []interface{} `json:"members"` // 成员列表，可能包含分数
+}
+
+// ZSetZRevRangeData ZSet ZREVRANGE操作的业务数据
+type ZSetZRevRangeData struct {
+	Members []interface{} `json:"members"` // 成员列表，可能包含分数
+}
+
+// ZSetZRangeByScoreData ZSet ZRANGEBYSCORE操作的业务数据
+type ZSetZRangeByScoreData struct {
+	Members []interface{} `json:"members"` // 成员列表，可能包含分数
+}
+
+// ZSetZRevRangeByScoreData ZSet ZREVRANGEBYSCORE操作的业务数据
+type ZSetZRevRangeByScoreData struct {
+	Members []interface{} `json:"members"` // 成员列表，可能包含分数
+}
+
+// ZSetZRemData ZSet ZREM操作的业务数据
+type ZSetZRemData struct {
+	Removed int64 `json:"removed"` // 被移除的成员数量
+}
+
+// ZSetZRemRangeByRankData ZSet ZREMRANGEBYRANK操作的业务数据
+type ZSetZRemRangeByRankData struct {
+	Removed int64 `json:"removed"` // 被移除的成员数量
+}
+
+// ZSetZRemRangeByScoreData ZSet ZREMRANGEBYSCORE操作的业务数据
+type ZSetZRemRangeByScoreData struct {
+	Removed int64 `json:"removed"` // 被移除的成员数量
+}

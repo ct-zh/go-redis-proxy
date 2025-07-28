@@ -40,6 +40,22 @@ type RedisDAO interface {
 	SetSIsMember(ctx context.Context, key string, member string) (bool, error)
 	SetSMembers(ctx context.Context, key string) ([]string, error)
 	SetSCard(ctx context.Context, key string) (int64, error)
+
+	// ZSet operations
+	ZSetZAdd(ctx context.Context, key string, members map[string]float64) (int64, error)
+	ZSetZIncrBy(ctx context.Context, key string, increment float64, member string) (float64, error)
+	ZSetZScore(ctx context.Context, key string, member string) (interface{}, error)
+	ZSetZCard(ctx context.Context, key string) (int64, error)
+	ZSetZCount(ctx context.Context, key string, min, max float64) (int64, error)
+	ZSetZRank(ctx context.Context, key string, member string) (interface{}, error)
+	ZSetZRevRank(ctx context.Context, key string, member string) (interface{}, error)
+	ZSetZRange(ctx context.Context, key string, start, stop int64, withScores bool) ([]interface{}, error)
+	ZSetZRevRange(ctx context.Context, key string, start, stop int64, withScores bool) ([]interface{}, error)
+	ZSetZRangeByScore(ctx context.Context, key string, min, max string, withScores bool, offset, count int64) ([]interface{}, error)
+	ZSetZRevRangeByScore(ctx context.Context, key string, max, min string, withScores bool, offset, count int64) ([]interface{}, error)
+	ZSetZRem(ctx context.Context, key string, members []string) (int64, error)
+	ZSetZRemRangeByRank(ctx context.Context, key string, start, stop int64) (int64, error)
+	ZSetZRemRangeByScore(ctx context.Context, key string, min, max string) (int64, error)
 }
 
 // RedisConnectionConfig holds the configuration for Redis connection
