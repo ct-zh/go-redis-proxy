@@ -3,43 +3,45 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 
+	"github.com/ct-zh/go-redis-proxy/internal/container"
 	"github.com/ct-zh/go-redis-proxy/internal/handler"
 )
 
-func Setup(engine *gin.Engine) {
-	// 注册ping路由
+// SetupWithContainer sets up routes using dependency injection container
+func SetupWithContainer(engine *gin.Engine, container *container.Container) {
+	// Health check endpoint
 	engine.GET("/ping", handler.Ping)
-	engine.GET("/health", handler.Ping) // 健康检查使用相同处理器
 
-	// Redis operations
-	apiV1 := engine.Group("/api/v1")
+	// API v1 group
+	api := engine.Group("/api/v1")
 	{
-		redis := apiV1.Group("/redis")
+		// Redis operations
+		redis := api.Group("/redis")
 		{
 			// String operations
 			stringGroup := redis.Group("/string")
 			{
-				stringGroup.POST("/get", handler.RedisStringGet(nil))
-				stringGroup.POST("/set", handler.RedisStringSet(nil))
-				stringGroup.POST("/del", handler.RedisStringDel(nil))
-				stringGroup.POST("/exists", handler.RedisStringExists(nil))
-				stringGroup.POST("/incr", handler.RedisStringIncr(nil))
-				stringGroup.POST("/decr", handler.RedisStringDecr(nil))
-				stringGroup.POST("/expire", handler.RedisStringExpire(nil))
+				stringGroup.POST("/get", container.RedisHandler.RedisStringGet)
+				stringGroup.POST("/set", container.RedisHandler.RedisStringSet)
+				stringGroup.POST("/del", container.RedisHandler.RedisStringDel)
+				stringGroup.POST("/exists", container.RedisHandler.RedisStringExists)
+				stringGroup.POST("/incr", container.RedisHandler.RedisStringIncr)
+				stringGroup.POST("/decr", container.RedisHandler.RedisStringDecr)
+				stringGroup.POST("/expire", container.RedisHandler.RedisStringExpire)
 			}
 
 			// List operations
 			listGroup := redis.Group("/list")
 			{
-				listGroup.POST("/lpush", handler.RedisListLPush(nil))
-				listGroup.POST("/rpush", handler.RedisListRPush(nil))
-				listGroup.POST("/lpop", handler.RedisListLPop(nil))
-				listGroup.POST("/rpop", handler.RedisListRPop(nil))
-				listGroup.POST("/lrem", handler.RedisListLRem(nil))
-				listGroup.POST("/lindex", handler.RedisListLIndex(nil))
-				listGroup.POST("/lrange", handler.RedisListLRange(nil))
-				listGroup.POST("/llen", handler.RedisListLLen(nil))
-				listGroup.POST("/ltrim", handler.RedisListLTrim(nil))
+				listGroup.POST("/lpush", container.RedisHandler.RedisListLPush)
+				listGroup.POST("/rpush", container.RedisHandler.RedisListRPush)
+				listGroup.POST("/lpop", container.RedisHandler.RedisListLPop)
+				listGroup.POST("/rpop", container.RedisHandler.RedisListRPop)
+				listGroup.POST("/lrem", container.RedisHandler.RedisListLRem)
+				listGroup.POST("/lindex", container.RedisHandler.RedisListLIndex)
+				listGroup.POST("/lrange", container.RedisHandler.RedisListLRange)
+				listGroup.POST("/llen", container.RedisHandler.RedisListLLen)
+				listGroup.POST("/ltrim", container.RedisHandler.RedisListLTrim)
 			}
 		}
 	}
