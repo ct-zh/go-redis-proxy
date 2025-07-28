@@ -98,6 +98,39 @@ func HandleAppError(c *gin.Context, err error) {
 	InternalServerError(c, "Internal server error", err)
 }
 
+// JSON handles business data and errors, formats them into standard response
+func JSON(c *gin.Context, data interface{}, err error) {
+	if err != nil {
+		// Try to convert to BusinessError
+		if bizErr, ok := err.(interface {
+			Code() int
+			Message() string
+		}); ok {
+			c.JSON(http.StatusOK, BaseResponse{
+				Code:    bizErr.Code(),
+				Message: bizErr.Message(),
+				Data:    data,
+			})
+			return
+		}
+		
+		// Handle standard error
+		c.JSON(http.StatusOK, BaseResponse{
+			Code:    500,
+			Message: err.Error(),
+			Data:    data,
+		})
+		return
+	}
+	
+	// Success response
+	c.JSON(http.StatusOK, BaseResponse{
+		Code:    200,
+		Message: "Success",
+		Data:    data,
+	})
+}
+
 // ValidateRequest validates required fields and sends error response if validation fails
 func ValidateRequest(c *gin.Context, conditions ...func() (bool, string)) bool {
 	for _, condition := range conditions {

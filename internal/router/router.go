@@ -33,15 +33,15 @@ func SetupWithContainer(engine *gin.Engine, container *container.Container) {
 			// List operations
 			listGroup := redis.Group("/list")
 			{
-				listGroup.POST("/lpush", container.RedisHandler.RedisListLPush)
-				listGroup.POST("/rpush", container.RedisHandler.RedisListRPush)
-				listGroup.POST("/lpop", container.RedisHandler.RedisListLPop)
-				listGroup.POST("/rpop", container.RedisHandler.RedisListRPop)
-				listGroup.POST("/lrem", container.RedisHandler.RedisListLRem)
-				listGroup.POST("/lindex", container.RedisHandler.RedisListLIndex)
-				listGroup.POST("/lrange", container.RedisHandler.RedisListLRange)
-				listGroup.POST("/llen", container.RedisHandler.RedisListLLen)
-				listGroup.POST("/ltrim", container.RedisHandler.RedisListLTrim)
+				listGroup.POST("/lpush", container.RedisListHandler.RedisListLPush)
+				listGroup.POST("/rpush", container.RedisListHandler.RedisListRPush)
+				listGroup.POST("/lpop", container.RedisListHandler.RedisListLPop)
+				listGroup.POST("/rpop", container.RedisListHandler.RedisListRPop)
+				listGroup.POST("/lrem", container.RedisListHandler.RedisListLRem)
+				listGroup.POST("/lindex", container.RedisListHandler.RedisListLIndex)
+				listGroup.POST("/lrange", container.RedisListHandler.RedisListLRange)
+				listGroup.POST("/llen", container.RedisListHandler.RedisListLLen)
+				listGroup.POST("/ltrim", container.RedisListHandler.RedisListLTrim)
 			}
 		}
 	}

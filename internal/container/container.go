@@ -16,7 +16,8 @@ type Container struct {
 	ListService   service.RedisListService
 
 	// Handler layer
-	RedisHandler *handler.RedisHandler
+	RedisHandler     *handler.RedisHandler
+	RedisListHandler *handler.RedisListHandler
 }
 
 // NewContainer creates and initializes a new container with all dependencies
@@ -33,6 +34,9 @@ func NewContainer() *Container {
 	// Initialize Handler layer with Service dependencies
 	container.RedisHandler = handler.NewRedisHandler(
 		container.StringService,
+		container.ListService,
+	)
+	container.RedisListHandler = handler.NewRedisListHandler(
 		container.ListService,
 	)
 
