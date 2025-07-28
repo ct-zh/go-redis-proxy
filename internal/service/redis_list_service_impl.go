@@ -14,7 +14,7 @@ type RedisListServiceImpl struct {
 }
 
 // NewRedisListService creates a new RedisListService instance
-func NewRedisListService(redisDAO dao.RedisDAO) RedisListService {
+func NewRedisListService(redisDAO dao.RedisDAO) *RedisListServiceImpl {
 	return &RedisListServiceImpl{
 		dao: redisDAO,
 	}

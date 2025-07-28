@@ -13,7 +13,7 @@ type RedisSetServiceImpl struct {
 }
 
 // NewRedisSetService creates a new instance of RedisSetServiceImpl
-func NewRedisSetService(dao dao.RedisDAO) RedisSetService {
+func NewRedisSetService(dao dao.RedisDAO) *RedisSetServiceImpl {
 	return &RedisSetServiceImpl{dao: dao}
 }
 

@@ -46,12 +46,11 @@ func main() {
 	cfg := config.Load()
 
 	// Initialize dependency injection container
-	appContainer := container.NewContainer()
-	defer func() {
-		if err := appContainer.Cleanup(); err != nil {
-			log.Printf("Error during cleanup: %v", err)
-		}
-	}()
+	appContainer, cleanup, err := container.InitializeContainer()
+	if err != nil {
+		log.Fatalf("Failed to initialize container: %v", err)
+	}
+	defer cleanup()
 
 	// Create Gin engine
 	engine := gin.Default()
@@ -110,10 +109,7 @@ func main() {
 	<-quit
 	fmt.Println("\nShutting down server...")
 
-	// Perform graceful shutdown
-	if err := appContainer.Cleanup(); err != nil {
-		log.Printf("Error during cleanup: %v", err)
-	}
+	
 
 	fmt.Println("Server stopped")
 }

@@ -111,17 +111,17 @@ go-redis-proxy/
 ### Phase 2: 架构重构优化 (当前阶段)
 **目标：改善代码架构分层，提高可维护性和可测试性**
 
-#### 2.1 分层架构重构
-- [ ] **Handler层重构**：只负责HTTP请求解析、参数验证、响应格式化
-- [ ] **Service/Logic层抽象**：封装业务逻辑，提供统一接口给Handler层
-- [ ] **DAO层实现**：封装数据访问操作，屏蔽Redis客户端实现细节
-- [ ] **依赖注入模式**：使用依赖注入管理各层依赖关系
+#### 2.1 分层架构重构 ✅ 已完成
+- [x] **Handler层重构**：只负责HTTP请求解析、参数验证、响应格式化
+- [x] **Service/Logic层抽象**：封装业务逻辑，提供统一接口给Handler层
+- [x] **DAO层实现**：封装数据访问操作，屏蔽Redis客户端实现细节
+- [x] **依赖注入模式**：使用Google Wire管理各层依赖关系
 
-#### 2.2 接口设计和实现
-- [ ] **Service接口定义**：RedisStringService、RedisListService等业务接口
-- [ ] **DAO接口定义**：RedisDAO统一数据访问接口
-- [ ] **错误处理统一化**：定义统一错误类型，分层错误转换
-- [ ] **配置统一管理**：Redis连接配置集中管理，连接池复用
+#### 2.2 接口设计和实现 ✅ 已完成
+- [x] **Service接口定义**：RedisStringService、RedisListService等业务接口
+- [x] **DAO接口定义**：RedisDAO统一数据访问接口
+- [x] **错误处理统一化**：定义统一错误类型，分层错误转换
+- [x] **配置统一管理**：Redis连接配置集中管理，连接池复用
 
 #### 2.3 响应封装和错误码管理 (新增优化方案)
 - [ ] **Handler响应封装**：封装c.JSON方法，自动处理data和error参数
@@ -204,6 +204,7 @@ Redis Client (具体实现)
 - **语言**: Go 1.24.3+
 - **Web框架**: Gin
 - **Redis客户端**: go-redis/redis/v8
+- **依赖注入**: Google Wire (编译时代码生成)
 - **配置管理**: Viper
 - **日志**: Logrus
 - **测试**: Testify
@@ -217,9 +218,19 @@ Redis Client (具体实现)
 git clone git@github.com:ct-zh/go-redis-proxy.git
 cd go-redis-proxy
 
+# 启用Go modules模式（如果需要）
+export GO111MODULE=on
+
 # 初始化依赖
-go mod init github.com/ct-zh/go-redis-proxy
 go mod tidy
+
+# 安装Wire工具（用于依赖注入代码生成）
+go install github.com/google/wire/cmd/wire@latest
+
+# 生成依赖注入代码（如果需要）
+cd internal/container
+wire
+cd ../..
 
 # 启动Redis（如果需要）
 docker run -d -p 6379:6379 redis:latest
@@ -228,11 +239,21 @@ docker run -d -p 6379:6379 redis:latest
 go run cmd/server/main.go
 
 # 测试API
-curl http://localhost:8080/health
+curl http://localhost:8080/ping
 
 # 访问API文档
 open http://localhost:8080/swagger/index.html
 ```
+
+### 架构特点
+
+本项目采用了现代化的Go应用架构：
+
+- **分层设计**: Handler → Service → DAO 清晰分层
+- **依赖注入**: 使用Google Wire进行编译时依赖注入
+- **接口抽象**: 各层通过接口解耦，便于测试和扩展
+- **错误管理**: 统一的错误码和错误处理机制
+- **API文档**: 集成Swagger/OpenAPI 3.0自动生成文档
 
 ## API文档系统
 
