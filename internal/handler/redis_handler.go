@@ -15,6 +15,17 @@ type RedisClient interface {
 	Get(ctx context.Context, key string) *redis.StringCmd
 }
 
+// RedisStringGet godoc
+// @Summary Redis字符串GET操作
+// @Description 根据指定的key获取Redis中存储的字符串值
+// @Tags Redis String Operations
+// @Accept json
+// @Produce json
+// @Param request body types.StringGetRequest true "请求参数"
+// @Success 200 {object} types.StringGetResponse "成功响应"
+// @Failure 400 {object} types.ErrorResponse "请求参数错误"
+// @Failure 500 {object} types.ErrorResponse "服务器内部错误"
+// @Router /redis/string/get [post]
 func RedisStringGet(client RedisClient) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		var req types.StringGetRequest

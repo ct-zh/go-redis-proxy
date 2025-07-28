@@ -1,0 +1,104 @@
+basePath: /api/v1
+definitions:
+  types.ErrorResponse:
+    properties:
+      error:
+        type: string
+    type: object
+  types.PingResponse:
+    properties:
+      data:
+        properties:
+          message:
+            type: string
+          timestamp:
+            type: string
+        type: object
+      success:
+        type: boolean
+    type: object
+  types.StringGetRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.StringGetResponse:
+    properties:
+      code:
+        type: integer
+      data:
+        properties:
+          value: {}
+        type: object
+      msg:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Redis HTTP代理服务API文档
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: Go Redis Proxy API
+  version: 1.0.0
+paths:
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: Ping服务，用于健康检查
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.PingResponse'
+      summary: Ping endpoint
+      tags:
+      - Health
+  /redis/string/get:
+    post:
+      consumes:
+      - application/json
+      description: 根据指定的key获取Redis中存储的字符串值
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.StringGetRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/types.StringGetResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/types.ErrorResponse'
+      summary: Redis字符串GET操作
+      tags:
+      - Redis String Operations
+schemes:
+- http
+- https
+swagger: "2.0"
