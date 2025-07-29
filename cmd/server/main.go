@@ -33,6 +33,7 @@ import (
 	"github.com/ct-zh/go-redis-proxy/internal/container"
 	"github.com/ct-zh/go-redis-proxy/internal/router"
 	"github.com/ct-zh/go-redis-proxy/pkg/errors"
+	"github.com/ct-zh/go-redis-proxy/pkg/logger"
 )
 
 func main() {
@@ -44,6 +45,19 @@ func main() {
 
 	// Load configuration
 	cfg := config.Load()
+
+	// Initialize logger
+	loggerConfig := logger.LoggerConfig{
+		Level:    cfg.Log.Level,
+		Dir:      cfg.Log.Dir,
+		MaxSize:  cfg.Log.MaxSize,
+		MaxAge:   cfg.Log.MaxAge,
+		Compress: cfg.Log.Compress,
+	}
+	if err := logger.Init(loggerConfig); err != nil {
+		log.Fatalf("Failed to initialize logger: %v", err)
+	}
+	logger.Info("Logger initialized successfully", nil)
 
 	// Initialize dependency injection container
 	appContainer, cleanup, err := container.InitializeContainer()

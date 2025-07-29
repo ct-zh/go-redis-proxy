@@ -5,10 +5,16 @@ import (
 
 	"github.com/ct-zh/go-redis-proxy/internal/container"
 	"github.com/ct-zh/go-redis-proxy/internal/handler"
+	"github.com/ct-zh/go-redis-proxy/internal/middleware"
 )
 
 // SetupWithContainer sets up routes using dependency injection container
 func SetupWithContainer(engine *gin.Engine, container *container.Container) {
+	// 添加全局中间件
+	engine.Use(middleware.RequestIDMiddleware())  // 请求ID中间件
+	engine.Use(middleware.RecoveryMiddleware())   // 恢复中间件
+	engine.Use(middleware.LoggingMiddleware())    // 日志中间件
+
 	// Health check endpoint
 	engine.GET("/ping", handler.Ping)
 
