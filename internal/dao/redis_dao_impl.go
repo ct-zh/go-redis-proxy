@@ -450,3 +450,76 @@ func (r *RedisDAOImpl) ZSetZRemRangeByScore(ctx context.Context, key string, min
 	result := r.client.ZRemRangeByScore(ctx, key, min, max)
 	return result.Val(), result.Err()
 }
+
+// Hash operations
+
+// HashHSet sets field-value pairs in a hash
+func (r *RedisDAOImpl) HashHSet(ctx context.Context, key string, fields map[string]string) (int64, error) {
+	// convert map to []interface{}
+	values := make([]interface{}, 0, len(fields)*2)
+	for field, value := range fields {
+		values = append(values, field, value)
+	}
+	result := r.client.HSet(ctx, key, values...)
+	return result.Val(), result.Err()
+}
+
+// HashHGet gets the value of a field in a hash
+func (r *RedisDAOImpl) HashHGet(ctx context.Context, key string, field string) (interface{}, error) {
+	result := r.client.HGet(ctx, key, field)
+	if result.Err() == redis.Nil {
+		return nil, nil
+	}
+	if result.Err() != nil {
+		return nil, result.Err()
+	}
+	return result.Val(), nil
+}
+
+// HashHMGet gets values of multiple fields in a hash
+func (r *RedisDAOImpl) HashHMGet(ctx context.Context, key string, fields []string) ([]interface{}, error) {
+	result := r.client.HMGet(ctx, key, fields...)
+	return result.Val(), result.Err()
+}
+
+// HashHGetAll gets all field-value pairs in a hash
+func (r *RedisDAOImpl) HashHGetAll(ctx context.Context, key string) (map[string]string, error) {
+	result := r.client.HGetAll(ctx, key)
+	return result.Val(), result.Err()
+}
+
+// HashHDel deletes fields from a hash
+func (r *RedisDAOImpl) HashHDel(ctx context.Context, key string, fields []string) (int64, error) {
+	result := r.client.HDel(ctx, key, fields...)
+	return result.Val(), result.Err()
+}
+
+// HashHExists checks if a field exists in a hash
+func (r *RedisDAOImpl) HashHExists(ctx context.Context, key string, field string) (bool, error) {
+	result := r.client.HExists(ctx, key, field)
+	return result.Val(), result.Err()
+}
+
+// HashHLen gets the number of fields in a hash
+func (r *RedisDAOImpl) HashHLen(ctx context.Context, key string) (int64, error) {
+	result := r.client.HLen(ctx, key)
+	return result.Val(), result.Err()
+}
+
+// HashHKeys gets all field names in a hash
+func (r *RedisDAOImpl) HashHKeys(ctx context.Context, key string) ([]string, error) {
+	result := r.client.HKeys(ctx, key)
+	return result.Val(), result.Err()
+}
+
+// HashHVals gets all field values in a hash
+func (r *RedisDAOImpl) HashHVals(ctx context.Context, key string) ([]string, error) {
+	result := r.client.HVals(ctx, key)
+	return result.Val(), result.Err()
+}
+
+// HashHIncrBy increments the value of a field in a hash by an integer
+func (r *RedisDAOImpl) HashHIncrBy(ctx context.Context, key string, field string, increment int64) (int64, error) {
+	result := r.client.HIncrBy(ctx, key, field, increment)
+	return result.Val(), result.Err()
+}

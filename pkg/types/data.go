@@ -161,3 +161,55 @@ type ZSetZRemRangeByRankData struct {
 type ZSetZRemRangeByScoreData struct {
 	Removed int64 `json:"removed"` // 被移除的成员数量
 }
+
+// Hash操作的业务数据类型
+
+// HashHSetData Hash HSET操作的业务数据
+type HashHSetData struct {
+	Set int64 `json:"set"` // 被设置的字段数量
+}
+
+// HashHGetData Hash HGET操作的业务数据
+type HashHGetData struct {
+	Value interface{} `json:"value"` // 字段值，如果字段不存在则为nil
+}
+
+// HashHMGetData Hash HMGET操作的业务数据
+type HashHMGetData struct {
+	Values []interface{} `json:"values"` // 字段值列表，不存在的字段值为nil
+}
+
+// HashHGetAllData Hash HGETALL操作的业务数据
+type HashHGetAllData struct {
+	Fields map[string]string `json:"fields"` // 所有字段和值的映射
+}
+
+// HashHDelData Hash HDEL操作的业务数据
+type HashHDelData struct {
+	Deleted int64 `json:"deleted"` // 被删除的字段数量
+}
+
+// HashHExistsData Hash HEXISTS操作的业务数据
+type HashHExistsData struct {
+	Exists bool `json:"exists"` // 字段是否存在
+}
+
+// HashHLenData Hash HLEN操作的业务数据
+type HashHLenData struct {
+	Length int64 `json:"length"` // 哈希表中字段的数量
+}
+
+// HashHKeysData Hash HKEYS操作的业务数据
+type HashHKeysData struct {
+	Keys []string `json:"keys"` // 所有字段名列表
+}
+
+// HashHValsData Hash HVALS操作的业务数据
+type HashHValsData struct {
+	Values []string `json:"values"` // 所有字段值列表
+}
+
+// HashHIncrByData Hash HINCRBY操作的业务数据
+type HashHIncrByData struct {
+	Value int64 `json:"value"` // 增量操作后的值
+}

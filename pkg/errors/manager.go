@@ -75,6 +75,8 @@ func (m *ErrorManager) initPredefinedErrors() {
 	m.registry.Register(CodeHashSetFailed, "设置失败", "hash")
 	m.registry.Register(CodeHashGetFailed, "获取失败", "hash")
 	m.registry.Register(CodeHashDelFailed, "删除失败", "hash")
+	m.registry.Register(CodeHashDeleteFailed, "删除失败", "hash")
+	m.registry.Register(CodeHashIncrementFailed, "增量操作失败", "hash")
 	
 	// Set操作错误
 	m.registry.Register(CodeSetTypeMismatch, "类型不匹配", "set")

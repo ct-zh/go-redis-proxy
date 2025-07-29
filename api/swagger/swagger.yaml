@@ -10,6 +10,137 @@ definitions:
       message:
         type: string
     type: object
+  types.HashHDelRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      fields:
+        items:
+          type: string
+        type: array
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.HashHExistsRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      field:
+        type: string
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.HashHGetAllRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.HashHGetRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      field:
+        type: string
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.HashHIncrByRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      field:
+        type: string
+      increment:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.HashHKeysRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.HashHLenRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.HashHMGetRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      fields:
+        items:
+          type: string
+        type: array
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.HashHSetRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      fields:
+        additionalProperties:
+          type: string
+        description: field -> value 映射
+        type: object
+      key:
+        type: string
+      password:
+        type: string
+    type: object
+  types.HashHValsRequest:
+    properties:
+      addr:
+        type: string
+      db:
+        type: integer
+      key:
+        type: string
+      password:
+        type: string
+    type: object
   types.ListLIndexRequest:
     properties:
       addr:
@@ -481,6 +612,306 @@ paths:
       summary: Ping endpoint
       tags:
       - Health
+  /redis/hash/hdel:
+    post:
+      consumes:
+      - application/json
+      description: 删除哈希表中一个或多个字段
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.HashHDelRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis哈希表HDEL操作
+      tags:
+      - Redis Hash Operations
+  /redis/hash/hexists:
+    post:
+      consumes:
+      - application/json
+      description: 查看哈希表的指定字段是否存在
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.HashHExistsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis哈希表HEXISTS操作
+      tags:
+      - Redis Hash Operations
+  /redis/hash/hget:
+    post:
+      consumes:
+      - application/json
+      description: 获取哈希表中指定字段的值
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.HashHGetRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis哈希表HGET操作
+      tags:
+      - Redis Hash Operations
+  /redis/hash/hgetall:
+    post:
+      consumes:
+      - application/json
+      description: 获取哈希表中所有的字段和值
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.HashHGetAllRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis哈希表HGETALL操作
+      tags:
+      - Redis Hash Operations
+  /redis/hash/hincrby:
+    post:
+      consumes:
+      - application/json
+      description: 为哈希表中的字段值加上指定增量值
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.HashHIncrByRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis哈希表HINCRBY操作
+      tags:
+      - Redis Hash Operations
+  /redis/hash/hkeys:
+    post:
+      consumes:
+      - application/json
+      description: 获取哈希表中的所有字段名
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.HashHKeysRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis哈希表HKEYS操作
+      tags:
+      - Redis Hash Operations
+  /redis/hash/hlen:
+    post:
+      consumes:
+      - application/json
+      description: 获取哈希表中字段的数量
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.HashHLenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis哈希表HLEN操作
+      tags:
+      - Redis Hash Operations
+  /redis/hash/hmget:
+    post:
+      consumes:
+      - application/json
+      description: 获取哈希表中一个或多个字段的值
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.HashHMGetRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis哈希表HMGET操作
+      tags:
+      - Redis Hash Operations
+  /redis/hash/hset:
+    post:
+      consumes:
+      - application/json
+      description: 为哈希表中的字段赋值
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.HashHSetRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis哈希表HSET操作
+      tags:
+      - Redis Hash Operations
+  /redis/hash/hvals:
+    post:
+      consumes:
+      - application/json
+      description: 获取哈希表中所有字段的值
+      parameters:
+      - description: 请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/types.HashHValsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功响应
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+        "500":
+          description: 服务器内部错误
+          schema:
+            $ref: '#/definitions/response.BaseResponse'
+      summary: Redis哈希表HVALS操作
+      tags:
+      - Redis Hash Operations
   /redis/list/lindex:
     post:
       consumes:

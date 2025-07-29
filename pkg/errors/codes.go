@@ -48,6 +48,8 @@ const (
 	CodeHashSetFailed       = 2303 // 设置失败
 	CodeHashGetFailed       = 2304 // 获取失败
 	CodeHashDelFailed       = 2305 // 删除失败
+	CodeHashDeleteFailed    = 2306 // 删除失败（alias）
+	CodeHashIncrementFailed = 2307 // 增量操作失败
 )
 
 // Set操作错误 2400-2499

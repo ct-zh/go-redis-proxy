@@ -72,6 +72,21 @@ func SetupWithContainer(engine *gin.Engine, container *container.Container) {
 				zsetGroup.POST("/zremrangebyrank", container.RedisZSetHandler.RedisZSetZRemRangeByRank)
 				zsetGroup.POST("/zremrangebyscore", container.RedisZSetHandler.RedisZSetZRemRangeByScore)
 			}
+
+			// Hash operations
+			hashGroup := redis.Group("/hash")
+			{
+				hashGroup.POST("/hset", container.RedisHashHandler.RedisHashHSet)
+				hashGroup.POST("/hget", container.RedisHashHandler.RedisHashHGet)
+				hashGroup.POST("/hmget", container.RedisHashHandler.RedisHashHMGet)
+				hashGroup.POST("/hgetall", container.RedisHashHandler.RedisHashHGetAll)
+				hashGroup.POST("/hdel", container.RedisHashHandler.RedisHashHDel)
+				hashGroup.POST("/hexists", container.RedisHashHandler.RedisHashHExists)
+				hashGroup.POST("/hlen", container.RedisHashHandler.RedisHashHLen)
+				hashGroup.POST("/hkeys", container.RedisHashHandler.RedisHashHKeys)
+				hashGroup.POST("/hvals", container.RedisHashHandler.RedisHashHVals)
+				hashGroup.POST("/hincrby", container.RedisHashHandler.RedisHashHIncrBy)
+			}
 		}
 	}
 }

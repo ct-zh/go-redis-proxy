@@ -50,3 +50,18 @@ type RedisZSetService interface {
 	ZRemRangeByRank(ctx context.Context, req *types.ZSetZRemRangeByRankRequest) (*types.ZSetZRemRangeByRankData, error)
 	ZRemRangeByScore(ctx context.Context, req *types.ZSetZRemRangeByScoreRequest) (*types.ZSetZRemRangeByScoreData, error)
 }
+
+// RedisHashService defines the business logic interface for Redis hash operations
+// 返回业务数据和错误，Handler层负责包装响应格式
+type RedisHashService interface {
+	HSet(ctx context.Context, req *types.HashHSetRequest) (*types.HashHSetData, error)
+	HGet(ctx context.Context, req *types.HashHGetRequest) (*types.HashHGetData, error)
+	HMGet(ctx context.Context, req *types.HashHMGetRequest) (*types.HashHMGetData, error)
+	HGetAll(ctx context.Context, req *types.HashHGetAllRequest) (*types.HashHGetAllData, error)
+	HDel(ctx context.Context, req *types.HashHDelRequest) (*types.HashHDelData, error)
+	HExists(ctx context.Context, req *types.HashHExistsRequest) (*types.HashHExistsData, error)
+	HLen(ctx context.Context, req *types.HashHLenRequest) (*types.HashHLenData, error)
+	HKeys(ctx context.Context, req *types.HashHKeysRequest) (*types.HashHKeysData, error)
+	HVals(ctx context.Context, req *types.HashHValsRequest) (*types.HashHValsData, error)
+	HIncrBy(ctx context.Context, req *types.HashHIncrByRequest) (*types.HashHIncrByData, error)
+}

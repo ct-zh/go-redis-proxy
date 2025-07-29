@@ -266,3 +266,72 @@ type ZSetZRemRangeByScoreRequest struct {
 	Min string `json:"min"` // 支持 -inf, +inf, (value 等格式
 	Max string `json:"max"` // 支持 -inf, +inf, (value 等格式
 }
+
+// Hash操作请求类型
+
+// HashHSetRequest 定义了HSET操作的请求体
+type HashHSetRequest struct {
+	RedisRequest
+	Key    string            `json:"key"`
+	Fields map[string]string `json:"fields"` // field -> value 映射
+}
+
+// HashHGetRequest 定义了HGET操作的请求体
+type HashHGetRequest struct {
+	RedisRequest
+	Key   string `json:"key"`
+	Field string `json:"field"`
+}
+
+// HashHMGetRequest 定义了HMGET操作的请求体
+type HashHMGetRequest struct {
+	RedisRequest
+	Key    string   `json:"key"`
+	Fields []string `json:"fields"`
+}
+
+// HashHGetAllRequest 定义了HGETALL操作的请求体
+type HashHGetAllRequest struct {
+	RedisRequest
+	Key string `json:"key"`
+}
+
+// HashHDelRequest 定义了HDEL操作的请求体
+type HashHDelRequest struct {
+	RedisRequest
+	Key    string   `json:"key"`
+	Fields []string `json:"fields"`
+}
+
+// HashHExistsRequest 定义了HEXISTS操作的请求体
+type HashHExistsRequest struct {
+	RedisRequest
+	Key   string `json:"key"`
+	Field string `json:"field"`
+}
+
+// HashHLenRequest 定义了HLEN操作的请求体
+type HashHLenRequest struct {
+	RedisRequest
+	Key string `json:"key"`
+}
+
+// HashHKeysRequest 定义了HKEYS操作的请求体
+type HashHKeysRequest struct {
+	RedisRequest
+	Key string `json:"key"`
+}
+
+// HashHValsRequest 定义了HVALS操作的请求体
+type HashHValsRequest struct {
+	RedisRequest
+	Key string `json:"key"`
+}
+
+// HashHIncrByRequest 定义了HINCRBY操作的请求体
+type HashHIncrByRequest struct {
+	RedisRequest
+	Key       string `json:"key"`
+	Field     string `json:"field"`
+	Increment int64  `json:"increment"`
+}

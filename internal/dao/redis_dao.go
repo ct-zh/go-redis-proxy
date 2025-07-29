@@ -56,6 +56,18 @@ type RedisDAO interface {
 	ZSetZRem(ctx context.Context, key string, members []string) (int64, error)
 	ZSetZRemRangeByRank(ctx context.Context, key string, start, stop int64) (int64, error)
 	ZSetZRemRangeByScore(ctx context.Context, key string, min, max string) (int64, error)
+
+	// Hash operations
+	HashHSet(ctx context.Context, key string, fields map[string]string) (int64, error)
+	HashHGet(ctx context.Context, key string, field string) (interface{}, error)
+	HashHMGet(ctx context.Context, key string, fields []string) ([]interface{}, error)
+	HashHGetAll(ctx context.Context, key string) (map[string]string, error)
+	HashHDel(ctx context.Context, key string, fields []string) (int64, error)
+	HashHExists(ctx context.Context, key string, field string) (bool, error)
+	HashHLen(ctx context.Context, key string) (int64, error)
+	HashHKeys(ctx context.Context, key string) ([]string, error)
+	HashHVals(ctx context.Context, key string) ([]string, error)
+	HashHIncrBy(ctx context.Context, key string, field string, increment int64) (int64, error)
 }
 
 // RedisConnectionConfig holds the configuration for Redis connection

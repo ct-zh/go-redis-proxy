@@ -21,20 +21,24 @@ func InitializeContainer() (*Container, func(), error) {
 	redisListServiceImpl := service.NewRedisListService(redisDAOImpl)
 	redisSetServiceImpl := service.NewRedisSetService(redisDAOImpl)
 	redisZSetService := service.NewRedisZSetService(redisDAOImpl)
+	redisHashService := service.NewRedisHashService(redisDAOImpl)
 	redisHandler := handler.NewRedisHandler(redisStringServiceImpl, redisListServiceImpl)
 	redisListHandler := handler.NewRedisListHandler(redisListServiceImpl)
 	redisSetHandler := handler.NewRedisSetHandler(redisSetServiceImpl)
 	redisZSetHandler := handler.NewRedisZSetHandler(redisZSetService)
+	redisHashHandler := handler.NewRedisHashHandler(redisHashService)
 	container := &Container{
 		RedisDAO:         redisDAOImpl,
 		StringService:    redisStringServiceImpl,
 		ListService:      redisListServiceImpl,
 		SetService:       redisSetServiceImpl,
 		ZSetService:      redisZSetService,
+		HashService:      redisHashService,
 		RedisHandler:     redisHandler,
 		RedisListHandler: redisListHandler,
 		RedisSetHandler:  redisSetHandler,
 		RedisZSetHandler: redisZSetHandler,
+		RedisHashHandler: redisHashHandler,
 	}
 	return container, func() {
 	}, nil
@@ -52,13 +56,15 @@ type Container struct {
 	ListService   service.RedisListService
 	SetService    service.RedisSetService
 	ZSetService   service.RedisZSetService
+	HashService   service.RedisHashService
 
 	// Handler layer
 	RedisHandler     *handler.RedisHandler
 	RedisListHandler *handler.RedisListHandler
 	RedisSetHandler  *handler.RedisSetHandler
 	RedisZSetHandler *handler.RedisZSetHandler
+	RedisHashHandler *handler.RedisHashHandler
 }
 
 // buildProvider
-var buildProvider = wire.NewSet(wire.Bind(new(dao.RedisDAO), new(*dao.RedisDAOImpl)), dao.NewRedisDAO, wire.Bind(new(service.RedisStringService), new(*service.RedisStringServiceImpl)), service.NewRedisStringService, wire.Bind(new(service.RedisListService), new(*service.RedisListServiceImpl)), service.NewRedisListService, wire.Bind(new(service.RedisSetService), new(*service.RedisSetServiceImpl)), service.NewRedisSetService, service.NewRedisZSetService, handler.NewRedisHandler, handler.NewRedisListHandler, handler.NewRedisSetHandler, handler.NewRedisZSetHandler, wire.Struct(new(Container), "*"))
+var buildProvider = wire.NewSet(wire.Bind(new(dao.RedisDAO), new(*dao.RedisDAOImpl)), dao.NewRedisDAO, wire.Bind(new(service.RedisStringService), new(*service.RedisStringServiceImpl)), service.NewRedisStringService, wire.Bind(new(service.RedisListService), new(*service.RedisListServiceImpl)), service.NewRedisListService, wire.Bind(new(service.RedisSetService), new(*service.RedisSetServiceImpl)), service.NewRedisSetService, service.NewRedisZSetService, service.NewRedisHashService, handler.NewRedisHandler, handler.NewRedisListHandler, handler.NewRedisSetHandler, handler.NewRedisZSetHandler, handler.NewRedisHashHandler, wire.Struct(new(Container), "*"))
