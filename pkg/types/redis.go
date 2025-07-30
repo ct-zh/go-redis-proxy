@@ -335,3 +335,75 @@ type HashHIncrByRequest struct {
 	Field     string `json:"field"`
 	Increment int64  `json:"increment"`
 }
+
+// 为了向后兼容，现有的请求结构体保持不变
+// 同时添加新的基于Token的请求结构体
+
+// TokenStringGetRequest 基于token的GET string请求
+type TokenStringGetRequest struct {
+	TokenRequest
+	Key string `json:"key"`
+}
+
+// TokenStringSetRequest 基于token的SET string请求
+type TokenStringSetRequest struct {
+	TokenRequest
+	Key   string `json:"key"`
+	Value string `json:"value"`
+	TTL   int    `json:"ttl,omitempty"` // 过期时间，单位秒，0表示不过期
+}
+
+// TokenStringDelRequest 基于token的DEL key请求
+type TokenStringDelRequest struct {
+	TokenRequest
+	Key string `json:"key"`
+}
+
+// TokenStringExistsRequest 基于token的EXISTS key请求
+type TokenStringExistsRequest struct {
+	TokenRequest
+	Key string `json:"key"`
+}
+
+// TokenStringIncrRequest 基于token的INCR key请求
+type TokenStringIncrRequest struct {
+	TokenRequest
+	Key string `json:"key"`
+}
+
+// TokenStringDecrRequest 基于token的DECR key请求
+type TokenStringDecrRequest struct {
+	TokenRequest
+	Key string `json:"key"`
+}
+
+// TokenStringExpireRequest 基于token的EXPIRE key请求
+type TokenStringExpireRequest struct {
+	TokenRequest
+	Key string `json:"key"`
+	TTL int    `json:"ttl"` // 过期时间，单位秒
+}
+
+// 类似地，可以为List、Set、ZSet、Hash操作添加基于Token的请求类型
+// 这里先添加几个示例
+
+// TokenListLPushRequest 基于token的LPUSH操作请求
+type TokenListLPushRequest struct {
+	TokenRequest
+	Key    string   `json:"key"`
+	Values []string `json:"values"`
+}
+
+// TokenHashHSetRequest 基于token的HSET操作请求
+type TokenHashHSetRequest struct {
+	TokenRequest
+	Key    string            `json:"key"`
+	Fields map[string]string `json:"fields"`
+}
+
+// TokenHashHGetRequest 基于token的HGET操作请求
+type TokenHashHGetRequest struct {
+	TokenRequest
+	Key   string `json:"key"`
+	Field string `json:"field"`
+}

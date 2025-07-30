@@ -68,3 +68,13 @@ const (
 	CodeZSetMemberNotFound  = 2503 // 成员不存在
 	CodeZSetRankNotFound    = 2504 // 排名不存在
 )
+
+// Token和连接管理错误 2600-2699
+const (
+	CodeTokenGenerationFailed = 2600 // Token生成失败
+	CodeTokenNotFound         = 2601 // Token不存在
+	CodeTokenExpired          = 2602 // Token已过期
+	CodeConnectionNotFound    = 2603 // 连接不存在
+	CodeConnectionPoolFull    = 2604 // 连接池已满
+	CodeTokenRefreshFailed    = 2605 // Token刷新失败
+)

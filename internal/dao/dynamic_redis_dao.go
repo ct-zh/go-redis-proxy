@@ -1,0 +1,69 @@
+package dao
+
+import (
+	"context"
+	"time"
+
+	"github.com/go-redis/redis/v8"
+)
+
+// DynamicRedisDAO 支持动态连接配置的Redis DAO接口
+type DynamicRedisDAO interface {
+	// Connection management with dynamic client
+	WithClient(client *redis.Client) DynamicRedisDAO
+	
+	// String operations
+	StringGet(ctx context.Context, key string) (interface{}, error)
+	StringSet(ctx context.Context, key string, value interface{}, ttl time.Duration) (string, error)
+	StringDel(ctx context.Context, key string) (int64, error)
+	StringExists(ctx context.Context, key string) (bool, error)
+	StringIncr(ctx context.Context, key string) (int64, error)
+	StringDecr(ctx context.Context, key string) (int64, error)
+	StringExpire(ctx context.Context, key string, ttl time.Duration) (bool, error)
+
+	// List operations
+	ListLPush(ctx context.Context, key string, values []string) (int64, error)
+	ListRPush(ctx context.Context, key string, values []string) (int64, error)
+	ListLPop(ctx context.Context, key string) (interface{}, error)
+	ListRPop(ctx context.Context, key string) (interface{}, error)
+	ListLRem(ctx context.Context, key string, count int64, value string) (int64, error)
+	ListLIndex(ctx context.Context, key string, index int64) (interface{}, error)
+	ListLRange(ctx context.Context, key string, start, stop int64) ([]string, error)
+	ListLLen(ctx context.Context, key string) (int64, error)
+	ListLTrim(ctx context.Context, key string, start, stop int64) (string, error)
+
+	// Set operations
+	SetSAdd(ctx context.Context, key string, members []string) (int64, error)
+	SetSRem(ctx context.Context, key string, members []string) (int64, error)
+	SetSIsMember(ctx context.Context, key string, member string) (bool, error)
+	SetSMembers(ctx context.Context, key string) ([]string, error)
+	SetSCard(ctx context.Context, key string) (int64, error)
+
+	// ZSet operations
+	ZSetZAdd(ctx context.Context, key string, members map[string]float64) (int64, error)
+	ZSetZIncrBy(ctx context.Context, key string, increment float64, member string) (float64, error)
+	ZSetZScore(ctx context.Context, key string, member string) (interface{}, error)
+	ZSetZCard(ctx context.Context, key string) (int64, error)
+	ZSetZCount(ctx context.Context, key string, min, max float64) (int64, error)
+	ZSetZRank(ctx context.Context, key string, member string) (interface{}, error)
+	ZSetZRevRank(ctx context.Context, key string, member string) (interface{}, error)
+	ZSetZRange(ctx context.Context, key string, start, stop int64, withScores bool) ([]interface{}, error)
+	ZSetZRevRange(ctx context.Context, key string, start, stop int64, withScores bool) ([]interface{}, error)
+	ZSetZRangeByScore(ctx context.Context, key string, min, max string, withScores bool, offset, count int64) ([]interface{}, error)
+	ZSetZRevRangeByScore(ctx context.Context, key string, max, min string, withScores bool, offset, count int64) ([]interface{}, error)
+	ZSetZRem(ctx context.Context, key string, members []string) (int64, error)
+	ZSetZRemRangeByRank(ctx context.Context, key string, start, stop int64) (int64, error)
+	ZSetZRemRangeByScore(ctx context.Context, key string, min, max string) (int64, error)
+
+	// Hash operations
+	HashHSet(ctx context.Context, key string, fields map[string]string) (int64, error)
+	HashHGet(ctx context.Context, key string, field string) (interface{}, error)
+	HashHMGet(ctx context.Context, key string, fields []string) ([]interface{}, error)
+	HashHGetAll(ctx context.Context, key string) (map[string]string, error)
+	HashHDel(ctx context.Context, key string, fields []string) (int64, error)
+	HashHExists(ctx context.Context, key string, field string) (bool, error)
+	HashHLen(ctx context.Context, key string) (int64, error)
+	HashHKeys(ctx context.Context, key string) ([]string, error)
+	HashHVals(ctx context.Context, key string) ([]string, error)
+	HashHIncrBy(ctx context.Context, key string, field string, increment int64) (int64, error)
+}
